@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom</title>
+    <link rel="icon" href="https://ssl.gstatic.com/classroom/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:100,300,400,500,700,900,100i,300i,400i,500i,700i,900i">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Google Sans', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .dark .bg-white {
+            background-color: #1e1e1e;
+        }
+        .dark .text-gray-800 {
+            color: #f0f0f0;
+        }
+        .dark .text-gray-600 {
+            color: #b0b0b0;
+        }
+        .dark .border-gray-300 {
+            border-color: #444;
+        }
+        .dark .bg-gray-200 {
+            background-color: #333;
+        }
+        .dark .border-gray-300 {
+            border-color: #555;
+        }
+        .dark .text-gray-500 {
+            color: #888;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 bg-gray-100 dark:bg-gray-900 transition-colors">
+    <div id="main-container" class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-2xl text-center transition-colors">
+        
+        <div id="mainPage">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200">Lunar Launcher V2</h1>
+                <div class="flex space-x-2">
+                    <button id="helpButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">Help</button>
+                    <button id="settingsButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">Settings</button>
+                    <button id="themeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                        <svg id="moonIcon" class="h-6 w-6 text-gray-800 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        <svg id="sunIcon" class="h-6 w-6 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Enter a YouTube video or playlist URL or ID to launch it in a new tab.</p>
+            
+            <div class="mb-4">
+                <input type="text" id="videoInput" placeholder="Paste YouTube URL or ID here" value="https://www.youtube.com/watch?v=LfHm50UJW6U" class="flex-grow w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-200 transition duration-200">
+            </div>
+
+            <div class="flex items-center justify-center mb-6">
+                <input type="checkbox" id="loopCheckbox" class="h-5 w-5 rounded text-blue-600 focus:ring-2 focus:ring-blue-500">
+                <label for="loopCheckbox" class="ml-2 text-gray-700 dark:text-gray-300 select-none">Loop video (only works for single videos)</label>
+            </div>
+
+            <button id="goButton" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-200 w-full">Launch</button>
+        </div>
+
+        <div id="settingsPage" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <button id="backFromSettingsButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">Back</button>
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Settings</h2>
+            </div>
+            
+            <div class="text-left">
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Cloak Settings</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label for="cloakTitleInput" class="block text-gray-700 dark:text-gray-300 mb-2">Website Title:</label>
+                        <input type="text" id="cloakTitleInput" placeholder="Enter new title" value ="Classroom" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-200">
+                    </div>
+                    <div>
+                        <label for="cloakFaviconInput" class="block text-gray-700 dark:text-gray-300 mb-2">Favicon URL:</label>
+                        <input type="text" id="cloakFaviconInput" placeholder="Enter new favicon URL" value="https://ssl.gstatic.com/classroom/favicon.png" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-200">
+                    </div>
+                    <div>
+                        <label for="videoTabTitleInput" class="block text-gray-700 dark:text-gray-300 mb-2">Video Tab Title:</label>
+                        <input type="text" id="videoTabTitleInput" placeholder="Enter new title for video tab" value="Classroom" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-200">
+                    </div>
+                    <button id="saveCloakButton" class="w-full px-4 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors">
+                        Save Cloak Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="messageBox" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white p-6 rounded-lg shadow-xl text-center max-w-sm mx-4">
+                <p id="messageText" class="text-gray-800 mb-4"></p>
+                <button id="closeMessage" class="bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-200">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const videoInput = document.getElementById('videoInput');
+        const goButton = document.getElementById('goButton');
+        const loopCheckbox = document.getElementById('loopCheckbox');
+        const messageBox = document.getElementById('messageBox');
+        const messageText = document.getElementById('messageText');
+        const closeMessage = document.getElementById('closeMessage');
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        
+        const helpButton = document.getElementById('helpButton');
+        const settingsButton = document.getElementById('settingsButton');
+        const mainPage = document.getElementById('mainPage');
+        const settingsPage = document.getElementById('settingsPage');
+        const backFromSettingsButton = document.getElementById('backFromSettingsButton');
+
+        const cloakTitleInput = document.getElementById('cloakTitleInput');
+        const cloakFaviconInput = document.getElementById('cloakFaviconInput');
+        const videoTabTitleInput = document.getElementById('videoTabTitleInput');
+        const saveCloakButton = document.getElementById('saveCloakButton');
+
+        function showMessage(message) {
+            messageText.textContent = message;
+            messageBox.classList.remove('hidden');
+        }
+
+        closeMessage.addEventListener('click', () => {
+            messageBox.classList.add('hidden');
+        });
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            if (document.body.classList.contains('dark')) {
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+        });
+
+        helpButton.addEventListener('click', () => {
+            window.location.href = 'https://lunarlol.staticrun.app/help';
+        });
+
+        settingsButton.addEventListener('click', () => {
+            mainPage.classList.add('hidden');
+            settingsPage.classList.remove('hidden');
+        });
+
+        backFromSettingsButton.addEventListener('click', () => {
+            settingsPage.classList.add('hidden');
+            mainPage.classList.remove('hidden');
+        });
+        
+        goButton.addEventListener('click', () => {
+            let inputValue = videoInput.value.trim();
+
+            if (inputValue === "") {
+                showMessage("Please enter a YouTube URL or video ID.");
+                return;
+            }
+
+            let videoId = null;
+            let playlistId = null;
+            
+            const getIDs = (url) => {
+                try {
+                    const parsedUrl = new URL(url);
+                    const params = new URLSearchParams(parsedUrl.search);
+                    return {
+                        videoId: params.get('v'),
+                        playlistId: params.get('list')
+                    };
+                } catch (e) {
+                    const videoIdRegex = /^[a-zA-Z0-9_-]{11}$/;
+                    if (videoIdRegex.test(url)) {
+                        return { videoId: url, playlistId: null };
+                    }
+                    const playlistIdRegex = /^(PL|LL|RD|EC|UU|FL|LP)[a-zA-Z0-9_-]+$/;
+                    if (playlistIdRegex.test(url)) {
+                        return { videoId: null, playlistId: url };
+                    }
+                    return { videoId: null, playlistId: null };
+                }
+            };
+            
+            const ids = getIDs(inputValue);
+            videoId = ids.videoId;
+            playlistId = ids.playlistId;
+
+            if (playlistId && !videoId) {
+                let embedUrl = `https://www.youtube.com/embed/videoseries?list=${playlistId}`;
+                openAndRedirect(embedUrl);
+                return;
+            }
+
+            if (!videoId) {
+                showMessage("The input does not appear to be a valid YouTube URL or ID.");
+                return;
+            }
+
+            let embedUrl;
+            if (playlistId) {
+                embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?list=${playlistId}`;
+            } else {
+                embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
+                if (loopCheckbox.checked) {
+                    embedUrl += `?loop=1`;
+                }
+            }
+            
+            openAndRedirect(embedUrl);
+        });
+
+        function openAndRedirect(embedUrl) {
+            const videoTabTitle = localStorage.getItem('videoTabTitle') || 'YouTube Video';
+            const faviconUrl = localStorage.getItem('cloakFavicon');
+
+            try {
+                const newWindow = window.open('about:blank', '_blank');
+                if (newWindow) {
+                    newWindow.document.write(`
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>${videoTabTitle}</title>
+                            ${faviconUrl ? `<link rel="icon" href="${faviconUrl}" type="image/x-icon">` : ''}
+                            <style>
+                                body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+                                iframe { width: 100%; height: 100%; border: none; }
+                            </style>
+                        </head>
+                        <body>
+                            <iframe src="${embedUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        </body>
+                        </html>
+                    `);
+                    newWindow.document.close(); 
+                    window.location.href = 'https://www.google.com';
+                } else {
+                    showMessage("Pop-up blocked. Please allow pop-ups for this site to launch the video.");
+                }
+            } catch (e) {
+                showMessage("A security error occurred. The video could not be launched this way.");
+                console.error("Failed to write to new window:", e);
+            }
+        }
+
+
+        saveCloakButton.addEventListener('click', () => {
+            const newTitle = cloakTitleInput.value;
+            const newFavicon = cloakFaviconInput.value;
+            const newVideoTabTitle = videoTabTitleInput.value;
+
+            localStorage.setItem('cloakTitle', newTitle);
+            localStorage.setItem('cloakFavicon', newFavicon);
+            localStorage.setItem('videoTabTitle', newVideoTabTitle);
+            
+            if (newTitle) {
+                document.title = newTitle;
+            }
+
+            if (newFavicon) {
+                let faviconLink = document.querySelector("link[rel~='icon']");
+                if (!faviconLink) {
+                    faviconLink = document.createElement('link');
+                    faviconLink.rel = 'icon';
+                    document.getElementsByTagName('head')[0].appendChild(faviconLink);
+                }
+                faviconLink.href = newFavicon;
+            }
+            
+            showMessage("Cloak settings saved and applied!");
+        });
+
+        window.addEventListener('load', () => {
+            const savedTitle = localStorage.getItem('cloakTitle');
+            const savedFavicon = localStorage.getItem('cloakFavicon');
+            const savedVideoTabTitle = localStorage.getItem('videoTabTitle');
+            
+            if (savedTitle) {
+                document.title = savedTitle;
+                cloakTitleInput.value = savedTitle;
+            }
+
+            if (savedFavicon) {
+                let faviconLink = document.querySelector("link[rel~='icon']");
+                if (!faviconLink) {
+                    faviconLink = document.createElement('link');
+                    faviconLink.rel = 'icon';
+                    document.getElementsByTagName('head')[0].appendChild(faviconLink);
+                }
+                faviconLink.href = savedFavicon;
+                cloakFaviconInput.value = savedFavicon;
+            }
+            
+            if (savedVideoTabTitle) {
+                videoTabTitleInput.value = savedVideoTabTitle;
+            }
+        });
+    </script>
+</body>
+</html>
