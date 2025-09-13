@@ -37,17 +37,27 @@
         .dark .text-gray-500 {
             color: #888;
         }
+        .page-transition {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: translateY(16px);
+            opacity: 0;
+        }
+        .page-transition.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4 bg-gray-100 dark:bg-gray-900 transition-colors">
     <div id="main-container" class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-2xl text-center transition-colors">
         
-        <div id="mainPage">
+        <div id="mainPage" class="page-transition">
             <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200">Lunar Launcher V2</h1>
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200">Lunar Launcher V2.2</h1>
                 <div class="flex space-x-2">
                     <button id="helpButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">Help</button>
                     <button id="settingsButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">Settings</button>
+                    <button id="updateLogButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">Update Log</button>
                     <button id="themeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
                         <svg id="moonIcon" class="h-6 w-6 text-gray-800 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
@@ -72,7 +82,7 @@
             <button id="goButton" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-200 w-full">Launch</button>
         </div>
 
-        <div id="settingsPage" class="hidden">
+        <div id="settingsPage" class="page-transition hidden">
             <div class="flex justify-between items-center mb-6">
                 <button id="backFromSettingsButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">Back</button>
                 <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Settings</h2>
@@ -100,6 +110,84 @@
             </div>
         </div>
 
+        <div id="helpPage" class="page-transition hidden">
+            <div class="flex items-center mb-6">
+                <button id="backFromHelpButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </button>
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 ml-4">Help</h1>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 text-left mb-4">
+                Welcome to Lunar Launcher! This tool allows you to easily open YouTube videos and playlists in a new tab. This can be useful for focusing on the video content without distractions.
+            </p>
+            <p class="text-gray-600 dark:text-gray-400 text-left mb-4">
+                Simply paste a YouTube video URL, video ID, or playlist URL into the text box on the main page. The launcher will automatically detect the video and playlist IDs from the link.
+            </p>
+            <p class="text-gray-600 dark:text-gray-400 text-left">
+                You can also customize the appearance of the launcher and the video tabs in the Settings menu. This includes changing the title and favicon to make it look like a different website.
+            </p>
+        </div>
+
+        <!--update log pg-->
+        
+        <div id="updateLogMainPage" class="page-transition hidden">
+            <div class="flex items-center mb-6">
+                <button id="backFromUpdateLogMainButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </button>
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 ml-4">Update Log</h1>
+            </div>
+            <div class="text-left space-y-4">
+                <button class="update-log-version-button w-full text-left p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors" data-target="v21Page">
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">V2.1 - September 13, 2025</h3>
+                </button>
+                <button class="update-log-version-button w-full text-left p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors" data-target="v20Page">
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">V2.0 - September 10, 2025</h3>
+                </button>
+            </div>
+        </div>
+
+        <div id="v21Page" class="page-transition hidden">
+            <div class="flex items-center mb-6">
+                <button id="backFromV21Button" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </button>
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 ml-4">Update V2.1</h1>
+            </div>
+            <div class="text-left p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">V2.1 - September 13, 2025</h3>
+                <ul class="list-disc list-inside mt-2 text-gray-600 dark:text-gray-400">
+                    <li><strong>Help Page</strong> Added the help page.</li>
+                    <li><strong>Fixed Bold Text</strong> Lunar Team officialy fixed Bold Text.</li>
+                    <li><strong>Transitions</strong> Added Smooth keyframe transitions.</li>
+                    <li>Minor bug fixes and performance improvements.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="v20Page" class="page-transition hidden">
+            <div class="flex items-center mb-6">
+                <button id="backFromV20Button" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </button>
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 ml-4">Update V2.0</h1>
+            </div>
+            <div class="text-left p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">V2.0 - September 12, 2025</h3>
+                <ul class="list-disc list-inside mt-2 text-gray-600 dark:text-gray-400">
+                    <li><strong>Playlist Looping:</strong> Lunar has officialy added Playlist looping.</li>
+                    <li><strong>Video Looping:</strong> Lunar has officialy added Video Looping allowing users to loop videos.</li>
+            </div>
+        </div>
+
         <div id="messageBox" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
             <div class="bg-white p-6 rounded-lg shadow-xl text-center max-w-sm mx-4">
                 <p id="messageText" class="text-gray-800 mb-4"></p>
@@ -121,14 +209,36 @@
         
         const helpButton = document.getElementById('helpButton');
         const settingsButton = document.getElementById('settingsButton');
+        const updateLogButton = document.getElementById('updateLogButton');
+        
         const mainPage = document.getElementById('mainPage');
         const settingsPage = document.getElementById('settingsPage');
+        const helpPage = document.getElementById('helpPage');
+        const updateLogMainPage = document.getElementById('updateLogMainPage');
+        const v21Page = document.getElementById('v21Page');
+        const v20Page = document.getElementById('v20Page');
+
         const backFromSettingsButton = document.getElementById('backFromSettingsButton');
+        const backFromHelpButton = document.getElementById('backFromHelpButton');
+        const backFromUpdateLogMainButton = document.getElementById('backFromUpdateLogMainButton');
+        const backFromV21Button = document.getElementById('backFromV21Button');
+        const backFromV20Button = document.getElementById('backFromV20Button');
 
         const cloakTitleInput = document.getElementById('cloakTitleInput');
         const cloakFaviconInput = document.getElementById('cloakFaviconInput');
         const videoTabTitleInput = document.getElementById('videoTabTitleInput');
         const saveCloakButton = document.getElementById('saveCloakButton');
+
+        function showPage(page) {
+            const pages = [mainPage, settingsPage, helpPage, updateLogMainPage, v21Page, v20Page];
+            pages.forEach(p => {
+                p.classList.add('hidden');
+                p.classList.remove('active');
+            });
+            page.classList.remove('hidden');
+            void page.offsetWidth;  
+            page.classList.add('active');
+        }
 
         function showMessage(message) {
             messageText.textContent = message;
@@ -151,19 +261,47 @@
         });
 
         helpButton.addEventListener('click', () => {
-            window.location.href = 'https://lunarlol.staticrun.app/help';
+            showPage(helpPage);
         });
 
         settingsButton.addEventListener('click', () => {
-            mainPage.classList.add('hidden');
-            settingsPage.classList.remove('hidden');
+            showPage(settingsPage);
+        });
+        
+        updateLogButton.addEventListener('click', () => {
+            showPage(updateLogMainPage);
         });
 
         backFromSettingsButton.addEventListener('click', () => {
-            settingsPage.classList.add('hidden');
-            mainPage.classList.remove('hidden');
+            showPage(mainPage);
+        });
+
+        backFromHelpButton.addEventListener('click', () => {
+            showPage(mainPage);
         });
         
+        backFromUpdateLogMainButton.addEventListener('click', () => {
+            showPage(mainPage);
+        });
+
+        backFromV21Button.addEventListener('click', () => {
+            showPage(updateLogMainPage);
+        });
+
+        backFromV20Button.addEventListener('click', () => {
+            showPage(updateLogMainPage);
+        });
+
+        document.querySelectorAll('.update-log-version-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const targetId = e.currentTarget.dataset.target;
+                const targetPage = document.getElementById(targetId);
+                if (targetPage) {
+                    showPage(targetPage);
+                }
+            });
+        });
+
         goButton.addEventListener('click', () => {
             let inputValue = videoInput.value.trim();
 
@@ -247,7 +385,8 @@
                         </body>
                         </html>
                     `);
-                    newWindow.document.close(); 
+                    newWindow.document.close();
+
                     window.location.href = 'https://www.google.com';
                 } else {
                     showMessage("Pop-up blocked. Please allow pop-ups for this site to launch the video.");
@@ -257,7 +396,6 @@
                 console.error("Failed to write to new window:", e);
             }
         }
-
 
         saveCloakButton.addEventListener('click', () => {
             const newTitle = cloakTitleInput.value;
@@ -309,6 +447,8 @@
             if (savedVideoTabTitle) {
                 videoTabTitleInput.value = savedVideoTabTitle;
             }
+
+            showPage(mainPage);
         });
     </script>
 </body>
