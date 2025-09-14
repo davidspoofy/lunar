@@ -11,10 +11,11 @@
         body {
             font-family: 'Google Sans', sans-serif;
             transition: background-color 0.3s, color 0.3s;
+            background-color: #f3f4f6;
         }
-        .dark {
-            background-color: #121212;
-            color: #e0e0e0;
+        body.dark {
+            background-color: #121212 !important;
+            color: #e0e0e0
         }
         .dark .bg-white {
             background-color: #1e1e1e;
@@ -22,11 +23,17 @@
         .dark .text-gray-800 {
             color: #f0f0f0;
         }
+        .dark .text-gray-700 {
+            color: #d1d5db;
+        }
         .dark .text-gray-600 {
             color: #b0b0b0;
         }
         .dark .border-gray-300 {
             border-color: #444;
+        }
+        .dark .bg-gray-100 {
+            background-color: #2d3748;
         }
         .dark .bg-gray-200 {
             background-color: #333;
@@ -37,6 +44,18 @@
         .dark .text-gray-500 {
             color: #888;
         }
+        .dark .bg-gray-700 {
+            background-color: #2a2a2a;
+        }
+        .dark .hover\:bg-gray-200:hover {
+            background-color: #374151;
+        }
+        .dark .hover\:bg-gray-300:hover {
+            background-color: #4b5563;
+        }
+        .dark .hover\:text-gray-700:hover {
+            color: #fff;
+        }
         .page-transition {
             transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
             transform: translateY(16px);
@@ -46,37 +65,86 @@
             transform: translateY(0);
             opacity: 1;
         }
+        .tab-button.active {
+            border-bottom: 2px solid #3b82f6;
+            color: #3b82f6;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        input[type="checkbox"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            display: inline-block;
+            height: 1.25rem; 
+            width: 1.25rem;
+            background-color: #e5e7eb;
+            border: 2px solid #9ca3af;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        input[type="checkbox"]:checked {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        input[type="checkbox"]:checked:before {
+            content: '';
+            display: block;
+            width: 0.5rem;
+            height: 0.75rem;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) translate(25%, -25%);
+        }
+        .dark input[type="checkbox"] {
+            background-color: #374151;
+            border-color: #6b7280; 
+        }
+        .dark input[type="checkbox"]:checked {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        .dark input[type="text"] {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-color: #4a5568;
+        }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4 bg-gray-100 dark:bg-gray-900 transition-colors">
-    <div id="main-container" class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-2xl text-center transition-colors">
+<body class="flex items-center justify-center min-h-screen p-4 transition-colors">
+    <div id="main-container" class="bg-white p-8 rounded-xl shadow-lg w-full max-w-4xl text-center transition-colors">
         
         <div id="mainPage" class="page-transition">
             <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200">Lunar Launcher V2.2</h1>
+                <h1 class="text-3xl font-bold text-gray-800">Lunar Launcher V2.2</h1>
                 <div class="flex space-x-2">
-                    <button id="helpButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">Help</button>
-                    <button id="settingsButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">Settings</button>
-                    <button id="updateLogButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">Update Log</button>
-                    <button id="themeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
-                        <svg id="moonIcon" class="h-6 w-6 text-gray-800 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <button id="settingsButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium">Settings</button>
+                    <button id="updateLogButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium">Update Log</button>
+                    <button id="themeToggle" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors">
+                        <svg id="moonIcon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                         </svg>
-                        <svg id="sunIcon" class="h-6 w-6 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg id="sunIcon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                         </svg>
                     </button>
                 </div>
             </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">Enter a YouTube video or playlist URL or ID to launch it in a new tab.</p>
+            <p id="greetingText" class="text-xl font-medium text-gray-800 mb-4"></p>
+            <p class="text-gray-600 mb-4">Enter a YouTube video or playlist URL or ID to launch it in a new tab.</p>
             
             <div class="mb-4">
-                <input type="text" id="videoInput" placeholder="Paste YouTube URL or ID here" value="https://www.youtube.com/watch?v=LfHm50UJW6U" class="flex-grow w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-200 transition duration-200">
+                <input type="text" id="videoInput" placeholder="Paste YouTube URL or ID here" class="flex-grow w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
             </div>
 
             <div class="flex items-center justify-center mb-6">
                 <input type="checkbox" id="loopCheckbox" class="h-5 w-5 rounded text-blue-600 focus:ring-2 focus:ring-blue-500">
-                <label for="loopCheckbox" class="ml-2 text-gray-700 dark:text-gray-300 select-none">Loop video (only works for single videos)</label>
+                <label for="loopCheckbox" class="ml-2 text-gray-700 select-none">Loop video (only for single videos)</label>
             </div>
 
             <button id="goButton" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-200 w-full">Launch</button>
@@ -84,24 +152,28 @@
 
         <div id="settingsPage" class="page-transition hidden">
             <div class="flex justify-between items-center mb-6">
-                <button id="backFromSettingsButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">Back</button>
-                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Settings</h2>
+                <button id="backFromSettingsButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium">Back</button>
+                <h2 class="text-2xl font-bold text-gray-800">Settings</h2>
+                <div class="flex space-x-2">
+                    <button id="profileButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium">Profile</button>
+                    <button id="helpButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium">Help</button>
+                </div>
             </div>
             
             <div class="text-left">
-                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Cloak Settings</h3>
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Cloak Settings</h3>
                 <div class="space-y-4">
                     <div>
-                        <label for="cloakTitleInput" class="block text-gray-700 dark:text-gray-300 mb-2">Website Title:</label>
-                        <input type="text" id="cloakTitleInput" placeholder="Enter new title" value ="Classroom" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-200">
+                        <label for="cloakTitleInput" class="block text-gray-700 mb-2">Website Title:</label>
+                        <input type="text" id="cloakTitleInput" placeholder="Enter new title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label for="cloakFaviconInput" class="block text-gray-700 dark:text-gray-300 mb-2">Favicon URL:</label>
-                        <input type="text" id="cloakFaviconInput" placeholder="Enter new favicon URL" value="https://ssl.gstatic.com/classroom/favicon.png" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-200">
+                        <label for="cloakFaviconInput" class="block text-gray-700 mb-2">Favicon URL:</label>
+                        <input type="text" id="cloakFaviconInput" placeholder="Enter new favicon URL" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label for="videoTabTitleInput" class="block text-gray-700 dark:text-gray-300 mb-2">Video Tab Title:</label>
-                        <input type="text" id="videoTabTitleInput" placeholder="Enter new title for video tab" value="Classroom" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-200">
+                        <label for="videoTabTitleInput" class="block text-gray-700 mb-2">Video Tab Title:</label>
+                        <input type="text" id="videoTabTitleInput" placeholder="Enter new title for video tab" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <button id="saveCloakButton" class="w-full px-4 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors">
                         Save Cloak Settings
@@ -112,59 +184,80 @@
 
         <div id="helpPage" class="page-transition hidden">
             <div class="flex items-center mb-6">
-                <button id="backFromHelpButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">
+                <button id="backFromHelpButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                 </button>
-                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 ml-4">Help</h1>
+                <h1 class="text-3xl font-bold text-gray-800 ml-4">Help</h1>
             </div>
-            <p class="text-gray-600 dark:text-gray-400 text-left mb-4">
+            <p class="text-gray-600 text-left mb-4">
                 Welcome to Lunar Launcher! This tool allows you to easily open YouTube videos and playlists in a new tab. This can be useful for focusing on the video content without distractions.
             </p>
-            <p class="text-gray-600 dark:text-gray-400 text-left mb-4">
+            <p class="text-gray-600 text-left mb-4">
                 Simply paste a YouTube video URL, video ID, or playlist URL into the text box on the main page. The launcher will automatically detect the video and playlist IDs from the link.
             </p>
-            <p class="text-gray-600 dark:text-gray-400 text-left">
+            <p class="text-gray-600 text-left">
                 You can also customize the appearance of the launcher and the video tabs in the Settings menu. This includes changing the title and favicon to make it look like a different website.
             </p>
         </div>
 
-        <!--update log pg-->
-        
         <div id="updateLogMainPage" class="page-transition hidden">
             <div class="flex items-center mb-6">
-                <button id="backFromUpdateLogMainButton" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">
+                <button id="backFromUpdateLogMainButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                 </button>
-                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 ml-4">Update Log</h1>
+                <h1 class="text-3xl font-bold text-gray-800 ml-4">Update Log</h1>
             </div>
             <div class="text-left space-y-4">
-                <button class="update-log-version-button w-full text-left p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors" data-target="v21Page">
-                    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">V2.1 - September 13, 2025</h3>
+                <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors" data-target="v22Page">
+                    <h3 class="text-xl font-semibold text-gray-800">V2.2 - September 14, 2025</h3>
                 </button>
-                <button class="update-log-version-button w-full text-left p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors" data-target="v20Page">
-                    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">V2.0 - September 10, 2025</h3>
+                <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors" data-target="v21Page">
+                    <h3 class="text-xl font-semibold text-gray-800">V2.1 - September 13, 2025</h3>
+                </button>
+                <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors" data-target="v20Page">
+                    <h3 class="text-xl font-semibold text-gray-800">V2.0 - September 10, 2025</h3>
                 </button>
             </div>
         </div>
 
-        <div id="v21Page" class="page-transition hidden">
+        <div id="v22Page" class="page-transition hidden">
             <div class="flex items-center mb-6">
-                <button id="backFromV21Button" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">
+                <button id="backFromV22Button" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                 </button>
-                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 ml-4">Update V2.1</h1>
+                <h1 class="text-3xl font-bold text-gray-800 ml-4">Update V2.2</h1>
             </div>
-            <div class="text-left p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">V2.1 - September 13, 2025</h3>
-                <ul class="list-disc list-inside mt-2 text-gray-600 dark:text-gray-400">
+            <div class="text-left p-4 bg-gray-100 rounded-lg">
+                <h3 class="text-xl font-semibold text-gray-800">V2.2 - September 14, 2025</h3>
+                <ul class="list-disc list-inside mt-2 text-gray-600">
+                    <li>Moved <strong>Help & Username Page</strong> to settings.</li>
+                    <li>Added <strong>Username Page.</strong></li>
+                    <li>Redesigned the <strong>Checkbox</strong>.</li>
+                    <li>Fixed major bugs.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="v21Page" class="page-transition hidden">
+            <div class="flex items-center mb-6">
+                <button id="backFromV21Button" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </button>
+                <h1 class="text-3xl font-bold text-gray-800 ml-4">Update V2.1</h1>
+            </div>
+            <div class="text-left p-4 bg-gray-100 rounded-lg">
+                <h3 class="text-xl font-semibold text-gray-800">V2.1 - September 13, 2025</h3>
+                <ul class="list-disc list-inside mt-2 text-gray-600">
                     <li><strong>Help Page</strong> Added the help page.</li>
-                    <li><strong>Fixed Bold Text</strong> Lunar Team officialy fixed Bold Text.</li>
+                    <li><strong>Fixed Bold Text</strong> Lunar Team officially fixed Bold Text.</li>
                     <li><strong>Transitions</strong> Added Smooth keyframe transitions.</li>
                     <li>Minor bug fixes and performance improvements.</li>
                 </ul>
@@ -173,18 +266,40 @@
 
         <div id="v20Page" class="page-transition hidden">
             <div class="flex items-center mb-6">
-                <button id="backFromV20Button" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium">
+                <button id="backFromV20Button" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                 </button>
-                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 ml-4">Update V2.0</h1>
+                <h1 class="text-3xl font-bold text-gray-800 ml-4">Update V2.0</h1>
             </div>
-            <div class="text-left p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">V2.0 - September 12, 2025</h3>
-                <ul class="list-disc list-inside mt-2 text-gray-600 dark:text-gray-400">
-                    <li><strong>Playlist Looping:</strong> Lunar has officialy added Playlist looping.</li>
-                    <li><strong>Video Looping:</strong> Lunar has officialy added Video Looping allowing users to loop videos.</li>
+            <div class="text-left p-4 bg-gray-100 rounded-lg">
+                <h3 class="text-xl font-semibold text-gray-800">V2.0 - September 12, 2025</h3>
+                <ul class="list-disc list-inside mt-2 text-gray-600">
+                    <li><strong>Playlist Looping:</strong> Lunar has officially added Playlist looping.</li>
+                    <li><strong>Video Looping:</strong> Lunar has officially added Video Looping allowing users to loop videos.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="profilePage" class="page-transition hidden">
+            <div class="flex justify-between items-center mb-6">
+                <button id="backFromProfileButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium">Back</button>
+                <h2 class="text-2xl font-bold text-gray-800">Profile</h2>
+            </div>
+            
+            <div class="text-left">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Username</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label for="usernameInput" class="block text-gray-700 mb-2">Enter your username:</label>
+                        <input type="text" id="usernameInput" placeholder="e.g., JohnDoe" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <button id="saveUsernameButton" class="w-full px-4 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors">
+                        Save Username
+                    </button>
+                    <div id="currentUsernameDisplay" class="mt-4 text-gray-700"></div>
+                </div>
             </div>
         </div>
 
@@ -194,261 +309,347 @@
                 <button id="closeMessage" class="bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-200">Close</button>
             </div>
         </div>
+        
+        <div id="welcomeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white p-8 rounded-xl shadow-xl text-center w-full max-w-xl mx-4">
+                <div class="border-b border-gray-200 mb-6">
+                    <nav class="-mb-px flex justify-center space-x-8" aria-label="Tabs">
+                        <button class="tab-button active py-4 px-1 text-center font-medium text-sm text-gray-500 hover:text-gray-700 focus:outline-none" data-tab="welcome">
+                            Welcome
+                        </button>
+                        <button class="tab-button py-4 px-1 text-center font-medium text-sm text-gray-500 hover:text-gray-700 focus:outline-none" data-tab="whats-new">
+                            What's New
+                        </button>
+                        <button class="tab-button py-4 px-1 text-center font-medium text-sm text-gray-500 hover:text-gray-700 focus:outline-none" data-tab="about">
+                            About
+                        </button>
+                    </nav>
+                </div>
+                
+                <div id="welcome-tab" class="tab-content active text-left">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-800">Welcome to Lunar Launcher!</h2>
+                    <p class="text-gray-600 mb-4">
+                        This tool allows you to easily open YouTube videos and playlists in a new tab, helping you to focus on the content without distractions.
+                    </p>
+                    <p class="text-gray-600">
+                        Use the buttons and inputs to get started. You can also customize your experience in the Settings menu.
+                    </p>
+                </div>
+
+                <div id="whats-new-tab" class="tab-content text-left">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-800">What's New in This Version</h2>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li><strong>Automatic Dark Mode:</strong> The launcher now automatically switches to dark mode if your system preference is enabled.</li>
+                        <li><strong>Customizable Theme:</strong> You can still manually switch between light and dark themes using the toggle button.</li>
+                        <li><strong>New Checkbox Design:</strong> The checkboxes have a new, improved look that is consistent across both themes.</li>
+                        <li><strong>Extended Border:</strong> The main launcher container has been widened for a more spacious feel.</li>
+                    </ul>
+                </div>
+
+                <div id="about-tab" class="tab-content text-left">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-800">About Lunar Launcher</h2>
+                    <p class="text-gray-600 mb-4">
+                        Lunar Launcher was created to provide a simple, clean, and distraction-free way to watch YouTube content. It's a quick and easy solution for launching videos and playlists without the clutter of the standard YouTube interface with no ads!!.
+                    </p>
+                    <p class="text-gray-600">
+                        We hope you enjoy using it!
+                    </p>
+                </div>
+
+                <div class="mt-8">
+                    <button id="closeWelcomeButton" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        const videoInput = document.getElementById('videoInput');
-        const goButton = document.getElementById('goButton');
-        const loopCheckbox = document.getElementById('loopCheckbox');
-        const messageBox = document.getElementById('messageBox');
-        const messageText = document.getElementById('messageText');
-        const closeMessage = document.getElementById('closeMessage');
-        const themeToggle = document.getElementById('themeToggle');
-        const sunIcon = document.getElementById('sunIcon');
-        const moonIcon = document.getElementById('moonIcon');
-        
-        const helpButton = document.getElementById('helpButton');
-        const settingsButton = document.getElementById('settingsButton');
-        const updateLogButton = document.getElementById('updateLogButton');
-        
-        const mainPage = document.getElementById('mainPage');
-        const settingsPage = document.getElementById('settingsPage');
-        const helpPage = document.getElementById('helpPage');
-        const updateLogMainPage = document.getElementById('updateLogMainPage');
-        const v21Page = document.getElementById('v21Page');
-        const v20Page = document.getElementById('v20Page');
-
-        const backFromSettingsButton = document.getElementById('backFromSettingsButton');
-        const backFromHelpButton = document.getElementById('backFromHelpButton');
-        const backFromUpdateLogMainButton = document.getElementById('backFromUpdateLogMainButton');
-        const backFromV21Button = document.getElementById('backFromV21Button');
-        const backFromV20Button = document.getElementById('backFromV20Button');
-
-        const cloakTitleInput = document.getElementById('cloakTitleInput');
-        const cloakFaviconInput = document.getElementById('cloakFaviconInput');
-        const videoTabTitleInput = document.getElementById('videoTabTitleInput');
-        const saveCloakButton = document.getElementById('saveCloakButton');
-
-        function showPage(page) {
-            const pages = [mainPage, settingsPage, helpPage, updateLogMainPage, v21Page, v20Page];
-            pages.forEach(p => {
-                p.classList.add('hidden');
-                p.classList.remove('active');
-            });
-            page.classList.remove('hidden');
-            void page.offsetWidth;  
-            page.classList.add('active');
-        }
-
-        function showMessage(message) {
-            messageText.textContent = message;
-            messageBox.classList.remove('hidden');
-        }
-
-        closeMessage.addEventListener('click', () => {
-            messageBox.classList.add('hidden');
-        });
-
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark');
-            if (document.body.classList.contains('dark')) {
-                sunIcon.classList.remove('hidden');
-                moonIcon.classList.add('hidden');
-            } else {
-                sunIcon.classList.add('hidden');
-                moonIcon.classList.remove('hidden');
-            }
-        });
-
-        helpButton.addEventListener('click', () => {
-            showPage(helpPage);
-        });
-
-        settingsButton.addEventListener('click', () => {
-            showPage(settingsPage);
-        });
-        
-        updateLogButton.addEventListener('click', () => {
-            showPage(updateLogMainPage);
-        });
-
-        backFromSettingsButton.addEventListener('click', () => {
-            showPage(mainPage);
-        });
-
-        backFromHelpButton.addEventListener('click', () => {
-            showPage(mainPage);
-        });
-        
-        backFromUpdateLogMainButton.addEventListener('click', () => {
-            showPage(mainPage);
-        });
-
-        backFromV21Button.addEventListener('click', () => {
-            showPage(updateLogMainPage);
-        });
-
-        backFromV20Button.addEventListener('click', () => {
-            showPage(updateLogMainPage);
-        });
-
-        document.querySelectorAll('.update-log-version-button').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const targetId = e.currentTarget.dataset.target;
-                const targetPage = document.getElementById(targetId);
-                if (targetPage) {
-                    showPage(targetPage);
-                }
-            });
-        });
-
-        goButton.addEventListener('click', () => {
-            let inputValue = videoInput.value.trim();
-
-            if (inputValue === "") {
-                showMessage("Please enter a YouTube URL or video ID.");
-                return;
-            }
-
-            let videoId = null;
-            let playlistId = null;
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoInput = document.getElementById('videoInput');
+            const goButton = document.getElementById('goButton');
+            const loopCheckbox = document.getElementById('loopCheckbox');
+            const messageBox = document.getElementById('messageBox');
+            const messageText = document.getElementById('messageText');
+            const closeMessage = document.getElementById('closeMessage');
+            const themeToggle = document.getElementById('themeToggle');
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
             
-            const getIDs = (url) => {
-                try {
-                    const parsedUrl = new URL(url);
-                    const params = new URLSearchParams(parsedUrl.search);
-                    return {
-                        videoId: params.get('v'),
-                        playlistId: params.get('list')
-                    };
-                } catch (e) {
-                    const videoIdRegex = /^[a-zA-Z0-9_-]{11}$/;
-                    if (videoIdRegex.test(url)) {
-                        return { videoId: url, playlistId: null };
+            const helpButton = document.getElementById('helpButton');
+            const settingsButton = document.getElementById('settingsButton');
+            const updateLogButton = document.getElementById('updateLogButton');
+            
+            const mainPage = document.getElementById('mainPage');
+            const settingsPage = document.getElementById('settingsPage');
+            const helpPage = document.getElementById('helpPage');
+            const updateLogMainPage = document.getElementById('updateLogMainPage');
+            const v22Page = document.getElementById('v22Page');
+            const v21Page = document.getElementById('v21Page');
+            const v20Page = document.getElementById('v20Page');
+            const profilePage = document.getElementById('profilePage');
+
+            const backFromSettingsButton = document.getElementById('backFromSettingsButton');
+            const backFromHelpButton = document.getElementById('backFromHelpButton');
+            const backFromUpdateLogMainButton = document.getElementById('backFromUpdateLogMainButton');
+            const backFromV22Button = document.getElementById('backFromV22Button');
+            const backFromV21Button = document.getElementById('backFromV21Button');
+            const backFromV20Button = document.getElementById('backFromV20Button');
+            const backFromProfileButton = document.getElementById('backFromProfileButton');
+
+            const cloakTitleInput = document.getElementById('cloakTitleInput');
+            const cloakFaviconInput = document.getElementById('cloakFaviconInput');
+            const videoTabTitleInput = document.getElementById('videoTabTitleInput');
+            const saveCloakButton = document.getElementById('saveCloakButton');
+
+            const profileButton = document.getElementById('profileButton');
+            const usernameInput = document.getElementById('usernameInput');
+            const saveUsernameButton = document.getElementById('saveUsernameButton');
+            const currentUsernameDisplay = document.getElementById('currentUsernameDisplay');
+            const greetingText = document.getElementById('greetingText');
+            
+            const welcomeModal = document.getElementById('welcomeModal');
+            const closeWelcomeButton = document.getElementById('closeWelcomeButton');
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            function showPage(page) {
+                const pages = [mainPage, settingsPage, helpPage, updateLogMainPage, v22Page, v21Page, v20Page, profilePage];
+                pages.forEach(p => {
+                    if (p) { 
+                        p.classList.add('hidden');
+                        p.classList.remove('active');
                     }
-                    const playlistIdRegex = /^(PL|LL|RD|EC|UU|FL|LP)[a-zA-Z0-9_-]+$/;
-                    if (playlistIdRegex.test(url)) {
-                        return { videoId: null, playlistId: url };
-                    }
-                    return { videoId: null, playlistId: null };
-                }
-            };
-            
-            const ids = getIDs(inputValue);
-            videoId = ids.videoId;
-            playlistId = ids.playlistId;
-
-            if (playlistId && !videoId) {
-                let embedUrl = `https://www.youtube.com/embed/videoseries?list=${playlistId}`;
-                openAndRedirect(embedUrl);
-                return;
+                });
+                page.classList.remove('hidden');
+                void page.offsetWidth; 
+                page.classList.add('active');
             }
 
-            if (!videoId) {
-                showMessage("The input does not appear to be a valid YouTube URL or ID.");
-                return;
+            function showMessage(message, isSuccess = true) {
+                messageText.textContent = message;
+                messageBox.classList.remove('hidden');
             }
 
-            let embedUrl;
-            if (playlistId) {
-                embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?list=${playlistId}`;
-            } else {
-                embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
-                if (loopCheckbox.checked) {
-                    embedUrl += `?loop=1`;
-                }
-            }
-            
-            openAndRedirect(embedUrl);
-        });
-
-        function openAndRedirect(embedUrl) {
-            const videoTabTitle = localStorage.getItem('videoTabTitle') || 'YouTube Video';
-            const faviconUrl = localStorage.getItem('cloakFavicon');
-
-            try {
-                const newWindow = window.open('about:blank', '_blank');
-                if (newWindow) {
-                    newWindow.document.write(`
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                            <title>${videoTabTitle}</title>
-                            ${faviconUrl ? `<link rel="icon" href="${faviconUrl}" type="image/x-icon">` : ''}
-                            <style>
-                                body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-                                iframe { width: 100%; height: 100%; border: none; }
-                            </style>
-                        </head>
-                        <body>
-                            <iframe src="${embedUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                        </body>
-                        </html>
-                    `);
-                    newWindow.document.close();
-
-                    window.location.href = 'https://www.google.com';
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.body.classList.add('dark');
+                    moonIcon.classList.add('hidden');
+                    sunIcon.classList.remove('hidden');
                 } else {
-                    showMessage("Pop-up blocked. Please allow pop-ups for this site to launch the video.");
+                    document.body.classList.remove('dark');
+                    moonIcon.classList.remove('hidden');
+                    sunIcon.classList.add('hidden');
                 }
-            } catch (e) {
-                showMessage("A security error occurred. The video could not be launched this way.");
-                console.error("Failed to write to new window:", e);
             }
-        }
 
-        saveCloakButton.addEventListener('click', () => {
-            const newTitle = cloakTitleInput.value;
-            const newFavicon = cloakFaviconInput.value;
-            const newVideoTabTitle = videoTabTitleInput.value;
-
-            localStorage.setItem('cloakTitle', newTitle);
-            localStorage.setItem('cloakFavicon', newFavicon);
-            localStorage.setItem('videoTabTitle', newVideoTabTitle);
+            function setGreeting() {
+                const username = localStorage.getItem('username');
+                const hour = new Date().getHours();
+                let greeting;
+                if (hour < 12) {
+                    greeting = 'Good Morning';
+                } else if (hour < 18) {
+                    greeting = 'Good Afternoon';
+                } else {
+                    greeting = 'Good Evening';
+                }
+                greetingText.textContent = username ? `${greeting}, ${username}!` : `${greeting}!`;
+            }
             
-            if (newTitle) {
-                document.title = newTitle;
+            function loadUsername() {
+                const savedUsername = localStorage.getItem('username');
+                if (savedUsername) {
+                    usernameInput.value = savedUsername;
+                    currentUsernameDisplay.textContent = `Current Username: ${savedUsername}`;
+                } else {
+                    usernameInput.value = '';
+                    currentUsernameDisplay.textContent = 'No username saved.';
+                }
             }
 
-            if (newFavicon) {
+            function saveUsername() {
+                const username = usernameInput.value.trim();
+                if (username) {
+                    localStorage.setItem('username', username);
+                    loadUsername();
+                    setGreeting();
+                    showMessage("Username saved!");
+                } else {
+                    showMessage("Please enter a valid username.", false);
+                }
+            }
+            
+            function openAndRedirect(embedUrl) {
+                const videoTabTitle = localStorage.getItem('videoTabTitle') || 'Classroom';
+                const faviconUrl = localStorage.getItem('cloakFavicon') || 'https://ssl.gstatic.com/classroom/favicon.png';
+
+                try {
+                    const newWindow = window.open('about:blank', '_blank');
+                    if (newWindow) {
+                        newWindow.document.write(`
+                            <!DOCTYPE html>
+                            <html>
+                            <head>
+                                <title>${videoTabTitle}</title>
+                                <link rel="icon" href="${faviconUrl}" type="image/x-icon">
+                                <style>
+                                    body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #000; }
+                                    iframe { width: 100%; height: 100%; border: none; }
+                                </style>
+                            </head>
+                            <body>
+                                <iframe src="${embedUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </body>
+                            </html>
+                        `);
+                        newWindow.document.close();
+                        window.location.href = 'https://www.google.com';
+                    } else {
+                        showMessage("Pop-up blocked. Please allow pop-ups for this site.", false);
+                    }
+                } catch (e) {
+                    showMessage("A security error occurred. The video could not be launched.", false);
+                    console.error("Failed to write to new window:", e);
+                }
+            }
+
+            closeMessage.addEventListener('click', () => messageBox.classList.add('hidden'));
+
+            closeWelcomeButton.addEventListener('click', () => {
+                welcomeModal.classList.add('hidden');
+                localStorage.setItem('hasSeenWelcome', 'true');
+            });
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.dataset.tab;
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    button.classList.add('active');
+                    document.getElementById(targetTab + '-tab').classList.add('active');
+                });
+            });
+
+            themeToggle.addEventListener('click', () => {
+                const newTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
+                applyTheme(newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+
+            settingsButton.addEventListener('click', () => showPage(settingsPage));
+            helpButton.addEventListener('click', () => showPage(helpPage));
+            updateLogButton.addEventListener('click', () => showPage(updateLogMainPage));
+            profileButton.addEventListener('click', () => {
+                showPage(profilePage);
+                loadUsername();
+            });
+
+            backFromSettingsButton.addEventListener('click', () => { showPage(mainPage); setGreeting(); });
+            backFromUpdateLogMainButton.addEventListener('click', () => { showPage(mainPage); setGreeting(); });
+            backFromHelpButton.addEventListener('click', () => showPage(settingsPage));
+            if (backFromV22Button) backFromV22Button.addEventListener('click', () => showPage(updateLogMainPage));
+            if (backFromV21Button) backFromV21Button.addEventListener('click', () => showPage(updateLogMainPage));
+            if (backFromV20Button) backFromV20Button.addEventListener('click', () => showPage(updateLogMainPage));
+            backFromProfileButton.addEventListener('click', () => showPage(settingsPage));
+
+            document.querySelectorAll('.update-log-version-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const targetPage = document.getElementById(e.currentTarget.dataset.target);
+                    if (targetPage) showPage(targetPage);
+                });
+            });
+            
+            saveUsernameButton.addEventListener('click', saveUsername);
+            usernameInput.addEventListener('keydown', (e) => {
+                 if (e.key === 'Enter') saveUsername();
+            });
+            
+            saveCloakButton.addEventListener('click', () => {
+                const newTitle = cloakTitleInput.value;
+                const newFavicon = cloakFaviconInput.value;
+                const newVideoTabTitle = videoTabTitleInput.value;
+
+                localStorage.setItem('cloakTitle', newTitle);
+                localStorage.setItem('cloakFavicon', newFavicon);
+                localStorage.setItem('videoTabTitle', newVideoTabTitle);
+                
+                document.title = newTitle || 'Classroom';
                 let faviconLink = document.querySelector("link[rel~='icon']");
-                if (!faviconLink) {
-                    faviconLink = document.createElement('link');
-                    faviconLink.rel = 'icon';
-                    document.getElementsByTagName('head')[0].appendChild(faviconLink);
+                faviconLink.href = newFavicon || 'https://ssl.gstatic.com/classroom/favicon.png';
+
+                showMessage("Cloak settings saved and applied!");
+            });
+
+            goButton.addEventListener('click', () => {
+                const inputValue = videoInput.value.trim();
+                if (!inputValue) {
+                    showMessage("Please enter a YouTube URL or video ID.", false);
+                    return;
                 }
-                faviconLink.href = newFavicon;
-            }
-            
-            showMessage("Cloak settings saved and applied!");
-        });
 
-        window.addEventListener('load', () => {
-            const savedTitle = localStorage.getItem('cloakTitle');
-            const savedFavicon = localStorage.getItem('cloakFavicon');
-            const savedVideoTabTitle = localStorage.getItem('videoTabTitle');
-            
-            if (savedTitle) {
-                document.title = savedTitle;
-                cloakTitleInput.value = savedTitle;
-            }
+                const getIDs = (url) => {
+                    try {
+                        const parsedUrl = new URL(url);
+                        const params = new URLSearchParams(parsedUrl.search);
+                        return { videoId: params.get('v'), playlistId: params.get('list') };
+                    } catch (e) {
+                        const videoIdRegex = /^[a-zA-Z0-9_-]{11}$/;
+                        if (videoIdRegex.test(url)) return { videoId: url, playlistId: null };
+                        
+                        const playlistIdRegex = /^(PL|LL|RD|EC|UU|FL|LP)[a-zA-Z0-9_-]+$/;
+                        if (playlistIdRegex.test(url)) return { videoId: null, playlistId: url };
+                        
+                        return { videoId: null, playlistId: null };
+                    }
+                };
+                
+                const { videoId, playlistId } = getIDs(inputValue);
+                let embedUrl;
 
-            if (savedFavicon) {
-                let faviconLink = document.querySelector("link[rel~='icon']");
-                if (!faviconLink) {
-                    faviconLink = document.createElement('link');
-                    faviconLink.rel = 'icon';
-                    document.getElementsByTagName('head')[0].appendChild(faviconLink);
+                if (playlistId) {
+                    embedUrl = `https://www.youtube-nocookie.com/embed/videoseries?list=${playlistId}`;
+                } else if (videoId) {
+                    embedUrl = loopCheckbox.checked 
+                        ? `https://www.youtube-nocookie.com/embed/${videoId}?loop=1&playlist=${videoId}`
+                        : `https://www.youtube-nocookie.com/embed/${videoId}`;
+                } else {
+                    showMessage("Invalid YouTube URL or ID.", false);
+                    return;
                 }
-                faviconLink.href = savedFavicon;
-                cloakFaviconInput.value = savedFavicon;
-            }
-            
-            if (savedVideoTabTitle) {
-                videoTabTitleInput.value = savedVideoTabTitle;
+                
+                openAndRedirect(embedUrl);
+            });
+
+            function init() {
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                    applyTheme('dark');
+                } else {
+                    applyTheme('light');
+                }
+
+                const savedTitle = localStorage.getItem('cloakTitle');
+                const savedFavicon = localStorage.getItem('cloakFavicon');
+                if (savedTitle) document.title = savedTitle;
+                if (savedFavicon) document.querySelector("link[rel~='icon']").href = savedFavicon;
+                
+                cloakTitleInput.value = savedTitle || 'Classroom';
+                cloakFaviconInput.value = savedFavicon || 'https://ssl.gstatic.com/classroom/favicon.png';
+                videoTabTitleInput.value = localStorage.getItem('videoTabTitle') || 'Classroom';
+                
+                setGreeting();
+
+                if (!localStorage.getItem('hasSeenWelcome')) {
+                    welcomeModal.classList.remove('hidden');
+                }
+
+                showPage(mainPage);
             }
 
-            showPage(mainPage);
+            init();
         });
     </script>
 </body>
