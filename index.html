@@ -139,6 +139,7 @@
              background-color: rgba(255,255,255,0.08);
         }
 
+        /* --- Bubble Animation Styles --- */
         #bubble-background {
             position: fixed;
             top: 0;
@@ -152,6 +153,7 @@
         .bubble {
             position: absolute;
             bottom: -100px;
+            /* MODIFIED: Increased opacity from 0.3 to 0.6 and added a glow */
             background-color: rgba(59, 130, 246, 0.6);
             box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
             border-radius: 50%;
@@ -170,6 +172,7 @@
                 opacity: 0;
             }
         }
+        /* Make sure the main content is on top of the bubbles */
         #main-container {
             position: relative;
             z-index: 1;
@@ -184,8 +187,7 @@
         <div id="mainPage" class="page-transition">
             <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center space-x-3">
-                    <img src="https://avatars.githubusercontent.com/u/57332930?s=200&v=4" alt=" Logo" class="h-10 w-10 rounded-full">
-                    <h1 class="text-3xl font-bold text-gray-800"> Launcher V2.3</h1>
+                    <h1 class="text-3xl font-bold text-gray-800">Aqua Launcher V2.3</h1>
                 </div>
                 <div class="flex space-x-2">
                     <button id="archiveButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium">History</button>
@@ -271,7 +273,7 @@
                 <h1 class="text-3xl font-bold text-gray-800 ml-4">Help</h1>
             </div>
             <p class="text-gray-600 text-left mb-4">
-                Welcome to  Launcher! This tool allows you to easily open YouTube videos and playlists in a new tab. This can be useful for focusing on the video content without distractions.
+                Welcome to Aqua Launcher! This tool allows you to easily open YouTube videos and playlists in a new tab. This can be useful for focusing on the video content without distractions.
             </p>
             <p class="text-gray-600 text-left mb-4">
                 Simply paste a YouTube video URL, video ID, or playlist URL into the text box on the main page. The launcher will automatically detect the video and playlist IDs from the link.
@@ -358,7 +360,7 @@
                 <h3 class="text-xl font-semibold text-gray-800">V2.1 - September 13, 2025</h3>
                 <ul class="list-disc list-inside mt-2 text-gray-600">
                     <li><strong>Help Page</strong> Added the help page.</li>
-                    <li><strong>Fixed Bold Text</strong>  Team officially fixed Bold Text.</li>
+                    <li><strong>Fixed Bold Text</strong> Aqua Team officially fixed Bold Text.</li>
                     <li><strong>Transitions</strong> Added Smooth keyframe transitions.</li>
                     <li>Minor bug fixes and performance improvements.</li>
                 </ul>
@@ -497,8 +499,6 @@
             </div>
         </div>
 
-<img src="https://visit-counter.vercel.app/counter.png?page=https%3A%2F%2Faqua.staticrun.app&s=20&c=ffffff&bg=00000000&no=1&ff=electrolize&tb=&ta=+People+Launching+Aqua.." alt="visits">
-        
     </div>
 
     <script>
@@ -569,7 +569,7 @@
             // Archive
             const archiveList = document.getElementById('archiveList');
             const clearHistoryBtn = document.getElementById('clearHistoryBtn');
-            const historyStorageKey = 'LauncherHistory';
+            const historyStorageKey = 'AquaLauncherHistory';
 
             // --- Bubble Animation ---
             function createBubble() {
@@ -581,34 +581,29 @@
                 bubble.style.left = `${Math.random() * 100}%`;
                 bubble.style.animationDuration = `${Math.random() * 10 + 10}s`;
                 bubble.style.animationDelay = `${Math.random() * 5}s`;
-                if(bubbleContainer) bubbleContainer.appendChild(bubble);
+                bubbleContainer.appendChild(bubble);
 
                 setTimeout(() => {
                     bubble.remove();
-                }, 20000); // Set a reasonable timeout to remove old bubbles
+                }, 8888888);
             }
 
             function generateBubbles(count) {
-                if(!bubbleContainer) return;
                 for (let i = 0; i < count; i++) {
                     createBubble();
                 }
-                setInterval(createBubble, 1000); // Generate a new bubble every second
+                setInterval(createBubble, 500);
             }
 
             // --- Update Popup Logic ---
             function checkVersion() {
                 const lastSeenVersion = localStorage.getItem('lastSeenVersion');
                 if (lastSeenVersion !== currentVersion) {
-                    if (welcomeModal) {
-                        tabButtons.forEach(btn => btn.classList.remove('active'));
-                        tabContents.forEach(content => content.classList.remove('active'));
-                        const whatsNewTab = document.querySelector('.tab-button[data-tab="whats-new"]');
-                        const whatsNewContent = document.getElementById('whats-new-tab');
-                        if (whatsNewTab) whatsNewTab.classList.add('active');
-                        if (whatsNewContent) whatsNewContent.classList.add('active');
-                        welcomeModal.classList.remove('hidden');
-                    }
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.querySelector('.tab-button[data-tab="whats-new"]').classList.add('active');
+                    document.getElementById('whats-new-tab').classList.add('active');
+                    welcomeModal.classList.remove('hidden');
                 }
             }
 
@@ -629,32 +624,38 @@
 
             // --- Messaging ---
             function showMessage(message, isSuccess = true) {
-                if (messageText) messageText.textContent = message;
-                if (messageBox) messageBox.classList.remove('hidden');
+                messageText.textContent = message;
+                messageBox.classList.remove('hidden');
             }
 
             // --- Theme Management ---
             function applyTheme(theme) {
-                if (document.body) document.body.classList.toggle('dark', theme === 'dark');
-                if (moonIcon) moonIcon.classList.toggle('hidden', theme === 'dark');
-                if (sunIcon) sunIcon.classList.toggle('hidden', theme !== 'dark');
+                if (theme === 'dark') {
+                    document.body.classList.add('dark');
+                    moonIcon.classList.add('hidden');
+                    sunIcon.classList.remove('hidden');
+                } else {
+                    document.body.classList.remove('dark');
+                    moonIcon.classList.remove('hidden');
+                    sunIcon.classList.add('hidden');
+                }
                 localStorage.setItem('theme', theme);
             }
-            if (themeToggle) themeToggle.addEventListener('click', () => applyTheme(document.body.classList.contains('dark') ? 'light' : 'dark'));
+            themeToggle.addEventListener('click', () => applyTheme(document.body.classList.contains('dark') ? 'light' : 'dark'));
 
             // --- Greeting and Profile ---
             function setGreeting() {
                 const username = localStorage.getItem('username');
                 const hour = new Date().getHours();
                 let greeting = (hour < 12) ? 'Good Morning' : (hour < 18) ? 'Good Afternoon' : 'Good Evening';
-                if(greetingText) greetingText.textContent = username ? `${greeting}, ${username}!` : `${greeting}!`;
+                greetingText.textContent = username ? `${greeting}, ${username}!` : `${greeting}!`;
             }
             function loadUsername() {
                 const savedUsername = localStorage.getItem('username');
-                if (usernameInput) usernameInput.value = savedUsername || '';
-                if (currentUsernameDisplay) currentUsernameDisplay.textContent = savedUsername ? `Current Username: ${savedUsername}` : 'No username saved.';
+                usernameInput.value = savedUsername || '';
+                currentUsernameDisplay.textContent = savedUsername ? `Current Username: ${savedUsername}` : 'No username saved.';
             }
-            if(saveUsernameButton) saveUsernameButton.addEventListener('click', () => {
+            saveUsernameButton.addEventListener('click', () => {
                 const username = usernameInput.value.trim();
                 if (username) {
                     localStorage.setItem('username', username);
@@ -669,13 +670,12 @@
                 const favicon = localStorage.getItem('cloakFavicon') || 'https://ssl.gstatic.com/classroom/favicon.png';
                 const videoTitle = localStorage.getItem('videoTabTitle') || 'Classroom';
                 document.title = title;
-                const faviconEl = document.querySelector("link[rel='icon']");
-                if (faviconEl) faviconEl.href = favicon;
-                if (cloakTitleInput) cloakTitleInput.value = title;
-                if (cloakFaviconInput) cloakFaviconInput.value = favicon;
-                if (videoTabTitleInput) videoTabTitleInput.value = videoTitle;
+                document.querySelector("link[rel='icon']").href = favicon;
+                cloakTitleInput.value = title;
+                cloakFaviconInput.value = favicon;
+                videoTabTitleInput.value = videoTitle;
             }
-            if (saveCloakButton) saveCloakButton.addEventListener('click', () => {
+            saveCloakButton.addEventListener('click', () => {
                 localStorage.setItem('cloakTitle', cloakTitleInput.value.trim());
                 localStorage.setItem('cloakFavicon', cloakFaviconInput.value.trim());
                 localStorage.setItem('videoTabTitle', videoTabTitleInput.value.trim());
@@ -696,15 +696,14 @@
             }
 
             async function renderHistory() {
-                if(!archiveList) return;
                 archiveList.innerHTML = '<li class="text-gray-500 text-center p-4">Loading history...</li>';
                 const history = getHistory();
                 if (history.length === 0) {
-                    archiveList.innerHTML = '<li class="text-gray-500 text-center p-4">No videos launched yet.</li>';
-                    if (clearHistoryBtn) clearHistoryBtn.classList.add('hidden');
+                    archiveList.innerHTML = '<li class="text-gray-500 text-center p-4">No videos have been launched yet.</li>';
+                    clearHistoryBtn.classList.add('hidden');
                     return;
                 }
-                if (clearHistoryBtn) clearHistoryBtn.classList.remove('hidden');
+                clearHistoryBtn.classList.remove('hidden');
 
                 const videoIdRegex = /(?:v=|\/embed\/|\.be\/|v\/|e\/|watch\?v=|\&v=)([^#\&\?]{11})/;
                 let historyHtml = '';
@@ -712,24 +711,45 @@
                 for (const item of history) {
                     const videoIdMatch = item.url.match(videoIdRegex);
                     let cardHtml;
+
                     if (videoIdMatch) {
                         try {
                             const response = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoIdMatch[1]}`);
-                            if (!response.ok) throw new Error('Network fail');
+                            if (!response.ok) throw new Error('Network response was not ok');
                             const data = await response.json();
-                            if (data.error) throw new Error('API error');
-                            cardHtml = `<div class="flex items-center space-x-4 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors history-card" data-url="${item.url}"><img src="${data.thumbnail_url}" alt="Thumbnail" class="w-32 h-18 object-cover rounded-md flex-shrink-0"><div class="flex-grow overflow-hidden"><p class="font-semibold truncate text-gray-800">${data.title}</p><p class="text-sm text-gray-500">${item.launchedAt}</p></div><div class="flex items-center space-x-2 p-2 history-loop-container"><input type="checkbox" class="history-loop-checkbox"><label class="text-gray-700 select-none">Loop</label></div></div>`;
+                            if (data.error) throw new Error('Video not found or private');
+
+                            cardHtml = `
+                                <div class="flex items-center space-x-4 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors history-card" data-url="${item.url}">
+                                    <img src="${data.thumbnail_url}" alt="Video Thumbnail" class="w-32 h-18 object-cover rounded-md flex-shrink-0">
+                                    <div class="flex-grow overflow-hidden">
+                                        <p class="font-semibold truncate text-gray-800">${data.title}</p>
+                                        <p class="text-sm text-gray-500">${item.launchedAt}</p>
+                                    </div>
+                                    <div class="flex items-center space-x-2 p-2 history-loop-container">
+                                        <input type="checkbox" class="history-loop-checkbox">
+                                        <label class="text-gray-700 select-none">Loop</label>
+                                    </div>
+                                </div>`;
                         } catch (error) {
-                            cardHtml = `<div class="flex items-center space-x-4 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors history-card" data-url="${item.url}"><div class="w-32 h-18 bg-gray-300 rounded-md flex-shrink-0 flex items-center justify-center text-gray-500">No Thumb</div><div class="flex-grow"><p class="font-medium truncate text-gray-800">${item.url}</p><p class="text-sm text-gray-500">${item.launchedAt}</p></div><div class="flex items-center space-x-2 p-2 history-loop-container"><input type="checkbox" class="history-loop-checkbox"><label class="text-gray-700 select-none">Loop</label></div></div>`;
+                            cardHtml = `<div class="flex items-center space-x-4 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors history-card" data-url="${item.url}">
+                                            <div class="w-32 h-18 bg-gray-300 rounded-md flex-shrink-0 flex items-center justify-center text-gray-500">No Thumb</div>
+                                            <div class="flex-grow"><p class="font-medium truncate text-gray-800">${item.url}</p><p class="text-sm text-gray-500">${item.launchedAt}</p></div>
+                                            <div class="flex items-center space-x-2 p-2 history-loop-container"><input type="checkbox" class="history-loop-checkbox"><label class="text-gray-700 select-none">Loop</label></div>
+                                        </div>`;
                         }
                     } else {
-                         cardHtml = `<div class="flex items-center space-x-4 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors history-card" data-url="${item.url}"><div class="w-32 h-18 bg-gray-300 rounded-md flex-shrink-0 flex items-center justify-center text-gray-500">Playlist</div><div class="flex-grow"><p class="font-medium truncate text-gray-800">${item.url}</p><p class="text-sm text-gray-500">${item.launchedAt}</p></div></div>`;
+                         cardHtml = `<div class="flex items-center space-x-4 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors history-card" data-url="${item.url}">
+                                        <div class="w-32 h-18 bg-gray-300 rounded-md flex-shrink-0 flex items-center justify-center text-gray-500">Playlist</div>
+                                        <div class="flex-grow"><p class="font-medium truncate text-gray-800">${item.url}</p><p class="text-sm text-gray-500">${item.launchedAt}</p></div>
+                                    </div>`;
                     }
                     historyHtml += `<li>${cardHtml}</li>`;
                 }
                 archiveList.innerHTML = historyHtml;
             }
-            if(archiveList) archiveList.addEventListener('click', (e) => {
+
+            archiveList.addEventListener('click', (e) => {
                 const card = e.target.closest('.history-card');
                 const loopContainer = e.target.closest('.history-loop-container');
                 if (loopContainer) return;
@@ -741,14 +761,14 @@
                 }
             });
 
-            if(clearHistoryBtn) clearHistoryBtn.addEventListener('click', () => {
+            clearHistoryBtn.addEventListener('click', () => {
                 if (confirm('Are you sure you want to clear your entire launch history?')) {
                     localStorage.removeItem(historyStorageKey);
                     renderHistory();
                 }
             });
             
-            // --- Core Launcher Logic (with youtube-nocookie) ---
+            // --- Core Launcher Logic ---
             function launchVideo(urlToLaunch = null, loopOverride = null) {
                 const input = urlToLaunch || videoInput.value.trim();
                 const shouldLoop = loopOverride !== null ? loopOverride : loopCheckbox.checked;
@@ -766,12 +786,12 @@
 
                 let embedUrl;
                 if (playlistIdMatch) {
-                    embedUrl = `https://www.youtube-nocookie.com/embed/videoseries?list=${playlistIdMatch[1]}&autoplay=1`;
+                    embedUrl = `https://www.youtube.com/embed/videoseries?list=${playlistIdMatch[1]}&autoplay=1`;
                 } else if (videoIdMatch) {
-                    embedUrl = `https://www.youtube-nocookie.com/embed/${videoIdMatch[1]}?autoplay=1`;
+                    embedUrl = `https://www.youtube.com/embed/${videoIdMatch[1]}?autoplay=1`;
                     if (shouldLoop) embedUrl += `&loop=1&playlist=${videoIdMatch[1]}`;
                 } else {
-                    embedUrl = `https://www.youtube-nocookie.com/embed/${input}?autoplay=1`;
+                    embedUrl = `https://www.youtube.com/embed/${input}?autoplay=1`;
                 }
 
                 if (embedUrl) {
@@ -796,49 +816,47 @@
                     }
                 } catch (e) { console.error("Failed to write to new window:", e); }
             }
-            if(goButton) goButton.addEventListener('click', () => launchVideo());
-            if(videoInput) videoInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') launchVideo(); });
+            goButton.addEventListener('click', () => launchVideo());
+            videoInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') launchVideo(); });
 
             // --- Welcome Modal Tabs ---
-            if(tabButtons) tabButtons.forEach(button => {
+            tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const targetTab = button.dataset.tab;
                     tabButtons.forEach(btn => btn.classList.remove('active'));
                     tabContents.forEach(content => content.classList.remove('active'));
                     button.classList.add('active');
-                    const targetEl = document.getElementById(targetTab + '-tab');
-                    if(targetEl) targetEl.classList.add('active');
+                    document.getElementById(targetTab + '-tab').classList.add('active');
                 });
             });
 
             // --- Navigation Event Listeners ---
-            if(settingsButton) settingsButton.addEventListener('click', () => showPage(settingsPage));
-            if(updateLogButton) updateLogButton.addEventListener('click', () => showPage(updateLogMainPage));
-            if(creditsButton) creditsButton.addEventListener('click', () => showPage(creditsPage));
-            if(profileButton) profileButton.addEventListener('click', () => showPage(profilePage));
-            if(helpButton) helpButton.addEventListener('click', () => showPage(helpPage));
-            if(archiveButton) archiveButton.addEventListener('click', () => {
+            settingsButton.addEventListener('click', () => showPage(settingsPage));
+            updateLogButton.addEventListener('click', () => showPage(updateLogMainPage));
+            creditsButton.addEventListener('click', () => showPage(creditsPage));
+            profileButton.addEventListener('click', () => showPage(profilePage));
+            helpButton.addEventListener('click', () => showPage(helpPage));
+            archiveButton.addEventListener('click', () => {
                 renderHistory();
                 showPage(archivePage);
             });
-            const versionButtons = document.querySelectorAll('.update-log-version-button');
-            if(versionButtons) versionButtons.forEach(button => {
+            document.querySelectorAll('.update-log-version-button').forEach(button => {
                 button.addEventListener('click', () => showPage(document.getElementById(button.dataset.target)));
             });
-            if(backFromSettingsButton) backFromSettingsButton.addEventListener('click', () => showPage(mainPage));
-            if(backFromUpdateLogMainButton) backFromUpdateLogMainButton.addEventListener('click', () => showPage(mainPage));
-            if(backFromHelpButton) backFromHelpButton.addEventListener('click', () => showPage(settingsPage));
-            if(backFromCreditsButton) backFromCreditsButton.addEventListener('click', () => showPage(settingsPage));
-            if(backFromProfileButton) backFromProfileButton.addEventListener('click', () => showPage(settingsPage));
-            if(backFromV23Button) backFromV23Button.addEventListener('click', () => showPage(updateLogMainPage));
-            if(backFromV22Button) backFromV22Button.addEventListener('click', () => showPage(updateLogMainPage));
-            if(backFromV21Button) backFromV21Button.addEventListener('click', () => showPage(updateLogMainPage));
-            if(backFromV20Button) backFromV20Button.addEventListener('click', () => showPage(updateLogMainPage));
-            if(backFromArchiveButton) backFromArchiveButton.addEventListener('click', () => showPage(mainPage));
-            if(closeMessage) closeMessage.addEventListener('click', () => messageBox.classList.add('hidden'));
+            backFromSettingsButton.addEventListener('click', () => showPage(mainPage));
+            backFromUpdateLogMainButton.addEventListener('click', () => showPage(mainPage));
+            backFromHelpButton.addEventListener('click', () => showPage(settingsPage));
+            backFromCreditsButton.addEventListener('click', () => showPage(settingsPage));
+            backFromProfileButton.addEventListener('click', () => showPage(settingsPage));
+            backFromV23Button.addEventListener('click', () => showPage(updateLogMainPage));
+            backFromV22Button.addEventListener('click', () => showPage(updateLogMainPage));
+            backFromV21Button.addEventListener('click', () => showPage(updateLogMainPage));
+            backFromV20Button.addEventListener('click', () => showPage(updateLogMainPage));
+            backFromArchiveButton.addEventListener('click', () => showPage(mainPage));
+            closeMessage.addEventListener('click', () => messageBox.classList.add('hidden'));
             
-            if(closeWelcomeButton) closeWelcomeButton.addEventListener('click', () => {
-                if (welcomeModal) welcomeModal.classList.add('hidden');
+            closeWelcomeButton.addEventListener('click', () => {
+                welcomeModal.classList.add('hidden');
                 localStorage.setItem('lastSeenVersion', currentVersion);
             });
 
