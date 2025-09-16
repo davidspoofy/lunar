@@ -788,12 +788,12 @@
 
                 let embedUrl;
                 if (playlistIdMatch) {
-                    embedUrl = `https://www.youtube.com/embed/videoseries?list=${playlistIdMatch[1]}&autoplay=1`;
+                    embedUrl = `https://www.youtube-nocookie.com/embed/videoseries?list=${playlistIdMatch[1]}&autoplay=1`;
                 } else if (videoIdMatch) {
-                    embedUrl = `https://www.youtube.com/embed/${videoIdMatch[1]}?autoplay=1`;
+                    embedUrl = `https://www.youtube-nocookie.com/embed/${videoIdMatch[1]}?autoplay=1`;
                     if (shouldLoop) embedUrl += `&loop=1&playlist=${videoIdMatch[1]}`;
                 } else {
-                    embedUrl = `https://www.youtube.com/embed/${input}?autoplay=1`;
+                    embedUrl = `https://www.youtube-nocookie.com/embed/${input}?autoplay=1`;
                 }
 
                 if (embedUrl) {
