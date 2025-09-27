@@ -285,7 +285,6 @@
                 </div>
                 <div class="flex space-x-2">
                     <button id="archiveButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">History</button>
-                    <button id="cloakSettingsButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">Cloak</button>
                     <button id="settingsButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">Settings</button>
                     <button id="updateLogButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">Update Log</button>
                     <button id="incognitoToggleButton" class="incognito-toggle border-gradient">
@@ -314,6 +313,7 @@
             </div>
             <button id="goButton" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:from-blue-600 hover:to-purple-700 transition duration-200 w-full border-gradient">Launch</button>
         </div>
+        <p><small>livid was here</small></p>
         <div id="archivePage" class="page-transition hidden">
             <div class="flex items-center mb-6">
                 <button id="backFromArchiveButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">
@@ -330,31 +330,14 @@
                 <button id="backFromSettingsButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">Back</button>
                 <h2 class="text-2xl font-bold text-gray-800">Settings</h2>
                 <div class="flex space-x-2">
+                    <button id="cloakSettingsButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">Cloak</button>
                     <button id="profileButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">Profile</button>
                     <button id="helpButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">Help</button>
                     <button id="creditsButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">Credits</button>
                 </div>
             </div>
             <div class="text-left">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">Cloak Settings</h3>
-                <div class="space-y-4">
-                    <div>
-                        <label for="cloakTitleInput" class="block text-gray-700 mb-2">Website Title:</label>
-                        <input type="text" id="cloakTitleInput" placeholder="Enter new title" class="w-full px-4 py-2 input-gradient rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="cloakFaviconInput" class="block text-gray-700 mb-2">Favicon URL:</label>
-                        <input type="text" id="cloakFaviconInput" placeholder="Enter new favicon URL" class="w-full px-4 py-2 input-gradient rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="videoTabTitleInput" class="block text-gray-700 mb-2">Video Tab Title:</label>
-                        <input type="text" id="videoTabTitleInput" placeholder="Enter new title for video tab" class="w-full px-4 py-2 input-gradient rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <button id="saveCloakButton" class="w-full px-4 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-lg shadow-md hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors border-gradient">
-                        Save Cloak Settings
-                    </button>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800 mt-8 mb-4">Custom Gradient Settings</h3>
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Custom Gradient Settings</h3>
                 <div class="space-y-4">
                     <div>
                         <label for="gradientStartColor" class="block text-gray-700 mb-2">Gradient Start Color:</label>
@@ -405,6 +388,32 @@
                             Add Bubbles
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div id="cloakPage" class="page-transition hidden">
+            <div class="flex justify-between items-center mb-6">
+                <button id="backFromCloakButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">Back</button>
+                <h2 class="text-2xl font-bold text-gray-800">Cloak Settings</h2>
+                <div></div> <!-- Spacer to align button to the left -->
+            </div>
+            <div class="text-left">
+                <div class="space-y-4">
+                    <div>
+                        <label for="cloakTitleInput" class="block text-gray-700 mb-2">Website Title:</label>
+                        <input type="text" id="cloakTitleInput" placeholder="Enter new title" class="w-full px-4 py-2 input-gradient rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label for="cloakFaviconInput" class="block text-gray-700 mb-2">Favicon URL:</label>
+                        <input type="text" id="cloakFaviconInput" placeholder="Enter new favicon URL" class="w-full px-4 py-2 input-gradient rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label for="videoTabTitleInput" class="block text-gray-700 mb-2">Video Tab Title:</label>
+                        <input type="text" id="videoTabTitleInput" placeholder="Enter new title for video tab" class="w-full px-4 py-2 input-gradient rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <button id="saveCloakButton" class="w-full px-4 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-lg shadow-md hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors border-gradient">
+                        Save Cloak Settings
+                    </button>
                 </div>
             </div>
         </div>
@@ -587,29 +596,6 @@
                 <button id="closeMessage" class="bg-gradient-to-r from-red-500 to-orange-600 text-white font-bold py-2 px-4 rounded-lg hover:from-red-600 hover:to-orange-700 transition duration-200 border-gradient">Close</button>
             </div>
         </div>
-        <div id="cloakModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-            <div class="bg-white p-6 rounded-lg shadow-xl text-center max-w-sm mx-4 border-gradient">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">Cloak Settings</h3>
-                <div class="text-left space-y-4">
-                    <div>
-                        <label for="cloakTitleInput" class="block text-gray-700 mb-2">Website Title:</label>
-                        <input type="text" id="cloakTitleInput" placeholder="Enter new title" class="w-full px-4 py-2 input-gradient rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="cloakFaviconInput" class="block text-gray-700 mb-2">Favicon URL:</label>
-                        <input type="text" id="cloakFaviconInput" placeholder="Enter new favicon URL" class="w-full px-4 py-2 input-gradient rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="videoTabTitleInput" class="block text-gray-700 mb-2">Video Tab Title:</label>
-                        <input type="text" id="videoTabTitleInput" placeholder="Enter new title for video tab" class="w-full px-4 py-2 input-gradient rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                </div>
-                <button id="saveCloakButton" class="w-full px-4 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-lg shadow-md hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors mt-4 border-gradient">
-                    Save Cloak Settings
-                </button>
-                <button id="closeCloakModal" class="bg-gradient-to-r from-red-500 to-orange-600 text-white font-bold py-2 px-4 rounded-lg hover:from-red-600 hover:to-orange-700 transition duration-200 mt-4 border-gradient">Close</button>
-            </div>
-        </div>
         <div id="welcomeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
             <div class="bg-white p-8 rounded-xl shadow-xl text-center w-full max-w-xl mx-4 border-gradient">
                 <div class="border-b border-gray-200 mb-6">
@@ -678,6 +664,7 @@
             const allPages = document.querySelectorAll('.page-transition');
             const mainPage = document.getElementById('mainPage');
             const settingsPage = document.getElementById('settingsPage');
+            const cloakPage = document.getElementById('cloakPage');
             const helpPage = document.getElementById('helpPage');
             const updateLogMainPage = document.getElementById('updateLogMainPage');
             const v24Page = document.getElementById('v24Page'); // Added v24 page
@@ -695,7 +682,9 @@
             const profileButton = document.getElementById('profileButton');
             const helpButton = document.getElementById('helpButton');
             const archiveButton = document.getElementById('archiveButton');
+            const cloakSettingsButton = document.getElementById('cloakSettingsButton');
             const backFromSettingsButton = document.getElementById('backFromSettingsButton');
+            const backFromCloakButton = document.getElementById('backFromCloakButton');
             const backFromHelpButton = document.getElementById('backFromHelpButton');
             const backFromUpdateLogMainButton = document.getElementById('backFromUpdateLogMainButton');
             const backFromV24Button = document.getElementById('backFromV24Button'); // Added v24 button
@@ -707,9 +696,6 @@
             const backFromCreditsButton = document.getElementById('backFromCreditsButton');
             const backFromArchiveButton = document.getElementById('backFromArchiveButton');
             // Cloak Settings
-            const cloakSettingsButton = document.getElementById('cloakSettingsButton');
-            const cloakModal = document.getElementById('cloakModal');
-            const closeCloakModal = document.getElementById('closeCloakModal');
             const cloakTitleInput = document.getElementById('cloakTitleInput');
             const cloakFaviconInput = document.getElementById('cloakFaviconInput');
             const videoTabTitleInput = document.getElementById('videoTabTitleInput');
@@ -868,14 +854,6 @@
                 localStorage.setItem('videoTabTitle', videoTabTitleInput.value.trim());
                 loadCloakSettings();
                 showMessage("Cloak settings saved and applied!");
-                cloakModal.classList.add('hidden'); // Close modal after saving
-            });
-            cloakSettingsButton.addEventListener('click', () => {
-                loadCloakSettings(); // Load current settings into modal inputs
-                cloakModal.classList.remove('hidden');
-            });
-            closeCloakModal.addEventListener('click', () => {
-                cloakModal.classList.add('hidden');
             });
             // --- Gradient Settings ---
             function updateGradientPreview() {
@@ -892,10 +870,8 @@
                 document.documentElement.style.setProperty('--custom-gradient-start', start);
                 document.documentElement.style.setProperty('--custom-gradient-end', end);
                 document.documentElement.style.setProperty('--custom-gradient-direction', direction);
-
                 // Update background gradient
                 document.body.style.background = `linear-gradient(${direction}, ${start}, ${end})`;
-
                 // Save to localStorage
                 localStorage.setItem('customGradient', JSON.stringify({
                     start: start,
@@ -1079,10 +1055,15 @@
                 renderHistory();
                 showPage(archivePage);
             });
+            cloakSettingsButton.addEventListener('click', () => {
+                loadCloakSettings(); // Load current settings into modal inputs
+                showPage(cloakPage);
+            });
             document.querySelectorAll('.update-log-version-button').forEach(button => {
                 button.addEventListener('click', () => showPage(document.getElementById(button.dataset.target)));
             });
             backFromSettingsButton.addEventListener('click', () => showPage(mainPage));
+            backFromCloakButton.addEventListener('click', () => showPage(settingsPage));
             backFromUpdateLogMainButton.addEventListener('click', () => showPage(mainPage));
             backFromHelpButton.addEventListener('click', () => showPage(settingsPage));
             backFromCreditsButton.addEventListener('click', () => showPage(settingsPage));
