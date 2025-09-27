@@ -280,7 +280,7 @@
         <div id="mainPage" class="page-transition">
             <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center space-x-3">
-                    <h1 class="text-3xl font-bold text-gray-800">Lunar Launcher V2.4</h1> <!-- Rebranded title -->
+                    <h1 class="text-3xl font-bold text-gray-800">Lunar Launcher V2.5</h1> <!-- Rebranded title -->
                     <span id="incognitoBadge" class="incognito-badge">Incognito</span>
                 </div>
                 <div class="flex space-x-2">
@@ -312,8 +312,8 @@
                 <label for="loopCheckbox" class="ml-2 text-gray-700 select-none">Loop video (only for single videos)</label>
             </div>
             <button id="goButton" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:from-blue-600 hover:to-purple-700 transition duration-200 w-full border-gradient">Launch</button>
+            <p><small>livid was here</small></p>
         </div>
-        <p><small>livid was here</small></p>
         <div id="archivePage" class="page-transition hidden">
             <div class="flex items-center mb-6">
                 <button id="backFromArchiveButton" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">
@@ -446,8 +446,11 @@
                 <h1 class="text-3xl font-bold text-gray-800 ml-4">Update Log</h1>
             </div>
             <div class="text-left space-y-4">
+                <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors border-gradient" data-target="v25Page">
+                    <h3 class="text-xl font-semibold text-gray-800">V2.5 - September 27, 2025</h3>
+                </button>
                 <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors border-gradient" data-target="v24Page">
-                    <h3 class="text-xl font-semibold text-gray-800">V2.4 - September 15, 2025</h3>
+                    <h3 class="text-xl font-semibold text-gray-800">V2.4 - September 25, 2025</h3>
                 </button>
                 <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors border-gradient" data-target="v23Page">
                     <h3 class="text-xl font-semibold text-gray-800">V2.3 - September 14, 2025</h3>
@@ -461,6 +464,23 @@
                 <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors border-gradient" data-target="v20Page">
                     <h3 class="text-xl font-semibold text-gray-800">V2.0 - September 10, 2025</h3>
                 </button>
+            </div>
+        </div>
+        <div id="v25Page" class="page-transition hidden">
+            <div class="flex items-center mb-6">
+                <button id="backFromV25Button" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </button>
+                <h1 class="text-3xl font-bold text-gray-800 ml-4">Update V2.5</h1>
+            </div>
+            <div class="text-left p-4 bg-gray-100 rounded-lg border-gradient">
+                <h3 class="text-xl font-semibold text-gray-800">V2.5 - September 27, 2025</h3>
+                <ul class="list-disc list-inside mt-2 text-gray-600">
+                    <li><strong>Fixed Cloak button.</strong> Fixed the Cloak button on the home page.</li>
+                    <li><strong>Update Log:</strong> Added V2.5 update log.</li>
+                </ul>
             </div>
         </div>
         <div id="v24Page" class="page-transition hidden">
@@ -621,11 +641,10 @@
                     </p>
                 </div>
                 <div id="whats-new-tab" class="tab-content text-left">
-                    <h2 class="text-2xl font-bold mb-4 text-gray-800">What's New in Version 2.4</h2>
+                    <h2 class="text-2xl font-bold mb-4 text-gray-800">What's New in Version 2.5</h2>
                     <ul class="list-disc list-inside space-y-2 text-gray-600">
-                        <li><strong>Incognito Mode:</strong> Added an incognito mode to prevent history from being saved.</li>
-                        <li><strong>Custom Gradients:</strong> Added the ability to customize the gradient theme.</li>
-                        <li><strong>Minor Bug Fixes:</strong> Squashed some minor bugs.</li>
+                        <li><strong>Fixed Cloak button.</strong> Fixed the Cloak button on the home page.</li>
+                        <li><strong>Update Log:</strong> Added V2.5 update log.</li>
                     </ul>
                 </div>
                 <div id="about-tab" class="tab-content text-left">
@@ -647,7 +666,7 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const currentVersion = '2.4'; // Updated current version
+            const currentVersion = '2.5'; // Updated current version
             // --- DOM Element Selection ---
             const videoInput = document.getElementById('videoInput');
             const goButton = document.getElementById('goButton');
@@ -667,6 +686,7 @@
             const cloakPage = document.getElementById('cloakPage');
             const helpPage = document.getElementById('helpPage');
             const updateLogMainPage = document.getElementById('updateLogMainPage');
+            const v25Page = document.getElementById('v25Page'); // Added v25 page
             const v24Page = document.getElementById('v24Page'); // Added v24 page
             const v23Page = document.getElementById('v23Page');
             const v22Page = document.getElementById('v22Page');
@@ -687,6 +707,7 @@
             const backFromCloakButton = document.getElementById('backFromCloakButton');
             const backFromHelpButton = document.getElementById('backFromHelpButton');
             const backFromUpdateLogMainButton = document.getElementById('backFromUpdateLogMainButton');
+            const backFromV25Button = document.getElementById('backFromV25Button'); // Added v25 button
             const backFromV24Button = document.getElementById('backFromV24Button'); // Added v24 button
             const backFromV23Button = document.getElementById('backFromV23Button');
             const backFromV22Button = document.getElementById('backFromV22Button');
@@ -1068,6 +1089,7 @@
             backFromHelpButton.addEventListener('click', () => showPage(settingsPage));
             backFromCreditsButton.addEventListener('click', () => showPage(settingsPage));
             backFromProfileButton.addEventListener('click', () => showPage(settingsPage));
+            backFromV25Button.addEventListener('click', () => showPage(updateLogMainPage)); // Added v25 button listener
             backFromV24Button.addEventListener('click', () => showPage(updateLogMainPage)); // Added v24 button listener
             backFromV23Button.addEventListener('click', () => showPage(updateLogMainPage));
             backFromV22Button.addEventListener('click', () => showPage(updateLogMainPage));
