@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lunar Launcher V2.5</title>
+    <title>Lunar Launcher V2.5 - Theme Importer/Exporter</title>
     <link rel="icon" href="https://ssl.gstatic.com/classroom/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:100,300,400,500,700,900,100i,300i,400i,500i,700i,900i">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -272,7 +272,6 @@
         .dark .cloak-settings-button:hover {
             background-image: linear-gradient(#374151, #374151), linear-gradient(var(--custom-gradient-direction), var(--custom-gradient-start), var(--custom-gradient-end));
         }
-        
         /* Custom Cursor Styles */
         .cursor-dot {
             position: fixed;
@@ -285,11 +284,9 @@
             transform: translate(-50%, -50%);
             transition: transform 0.1s ease;
         }
-        
         .cursor-dot.active {
             transform: translate(-50%, -50%) scale(1.2);
         }
-        
         .cursor-trail {
             position: fixed;
             width: 8px;
@@ -301,7 +298,6 @@
             transform: translate(-50%, -50%);
             transition: opacity 0.2s ease;
         }
-        
         /* Custom Cursor Settings */
         .cursor-settings-container {
             display: none;
@@ -315,7 +311,6 @@
             align-items: center;
             justify-content: center;
         }
-        
         .cursor-settings-content {
             background: white;
             padding: 2rem;
@@ -325,12 +320,10 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             position: relative;
         }
-        
         .dark .cursor-settings-content {
             background: #1e1e1e;
             color: #e0e0e0;
         }
-        
         .close-cursor-settings {
             position: absolute;
             top: 10px;
@@ -341,11 +334,9 @@
             border: none;
             color: #6b7280;
         }
-        
         .dark .close-cursor-settings {
             color: #d1d5db;
         }
-        
         .cursor-preview {
             width: 100px;
             height: 100px;
@@ -356,21 +347,17 @@
             justify-content: center;
             background-color: #f3f4f6;
         }
-        
         .dark .cursor-preview {
             background-color: #2d3748;
         }
-        
         .cursor-preview .cursor-dot {
             position: static;
             transform: none;
         }
-        
         .cursor-preview .cursor-trail {
             position: static;
             transform: none;
         }
-        
         .cursor-color-picker {
             width: 30px;
             height: 30px;
@@ -493,6 +480,19 @@
                         </button>
                         <button id="addBubblesButton" class="flex-1 px-4 py-3 bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors border-gradient">
                             Add Bubbles
+                        </button>
+                    </div>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mt-8 mb-4">Theme Importer/Exporter</h3>
+                <div class="space-y-4">
+                    <button id="exportThemeButton" class="w-full px-4 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-lg shadow-md hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors border-gradient">
+                        Export Theme Settings
+                    </button>
+                    <div class="mt-6">
+                        <label for="importThemeFile" class="block text-gray-700 mb-2">Import Theme Settings:</label>
+                        <input type="file" id="importThemeFile" accept=".json" class="w-full px-4 py-2 input-gradient rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button id="importThemeButton" class="w-full mt-2 px-4 py-3 bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors border-gradient">
+                            Load Theme Settings
                         </button>
                     </div>
                 </div>
@@ -819,7 +819,6 @@
             </div>
         </div>
     </div>
-    
     <!-- Custom Cursor Elements -->
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="cursor-trail" id="cursorTrail0"></div>
@@ -837,7 +836,6 @@
     <div class="cursor-trail" id="cursorTrail12"></div>
     <div class="cursor-trail" id="cursorTrail13"></div>
     <div class="cursor-trail" id="cursorTrail14"></div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const currentVersion = '2.5'; // Updated current version
@@ -929,14 +927,12 @@
             let isIncognitoMode = false;
             let bubbleInterval;
             let currentBubbleCount = 45;
-            
             // Custom Cursor Elements
             const cursorDot = document.getElementById('cursorDot');
             const cursorTrails = [];
             for (let i = 0; i < 15; i++) {
                 cursorTrails.push(document.getElementById(`cursorTrail${i}`));
             }
-            
             // Custom Cursor Settings Elements
             const cursorSize = document.getElementById('cursorSize');
             const cursorSizeValue = document.getElementById('cursorSizeValue');
@@ -950,17 +946,18 @@
             const trailOpacityValue = document.getElementById('trailOpacityValue');
             const saveCursorSettingsButton = document.getElementById('saveCursorSettingsButton');
             const previewCursor = document.getElementById('previewCursor');
-            
+            // Theme Import/Export
+            const exportThemeButton = document.getElementById('exportThemeButton');
+            const importThemeFile = document.getElementById('importThemeFile');
+            const importThemeButton = document.getElementById('importThemeButton');
             // Cursor position tracking
             let mouseX = 0;
             let mouseY = 0;
             let trailPositions = [];
-            
             // Initialize trail positions
             for (let i = 0; i < cursorTrails.length; i++) {
                 trailPositions.push({ x: 0, y: 0 });
             }
-            
             // --- Custom Cursor Implementation ---
             function initCustomCursor() {
                 // Load cursor settings from localStorage
@@ -970,36 +967,30 @@
                 const savedCursorColor = localStorage.getItem('cursorColor');
                 const savedTrailColor = localStorage.getItem('trailColor');
                 const savedTrailOpacity = localStorage.getItem('trailOpacity');
-                
                 if (savedCursorSize) {
                     cursorSize.value = savedCursorSize;
                     cursorSizeValue.textContent = `${savedCursorSize}px`;
                     cursorDot.style.width = `${savedCursorSize}px`;
                     cursorDot.style.height = `${savedCursorSize}px`;
                 }
-                
                 if (savedTrailLength) {
                     trailLength.value = savedTrailLength;
                     trailLengthValue.textContent = `${savedTrailLength} particles`;
                 }
-                
                 if (savedTrailSpacing) {
                     trailSpacing.value = savedTrailSpacing;
                     trailSpacingValue.textContent = `${savedTrailSpacing}px`;
                 }
-                
                 if (savedCursorColor) {
                     cursorColor.value = savedCursorColor;
                     cursorDot.style.backgroundColor = savedCursorColor;
                 }
-                
                 if (savedTrailColor) {
                     trailColor.value = savedTrailColor;
                     cursorTrails.forEach(trail => {
                         trail.style.backgroundColor = savedTrailColor;
                     });
                 }
-                
                 if (savedTrailOpacity) {
                     trailOpacity.value = savedTrailOpacity;
                     trailOpacityValue.textContent = savedTrailOpacity;
@@ -1007,16 +998,22 @@
                         trail.style.opacity = savedTrailOpacity;
                     });
                 }
-                
-                // Mouse move event to update cursor position
+                // --- Add these variables for trail fade logic ---
+                let hideTrailTimer = null;
+                const trailHideDelay = 200; // Time in milliseconds after which trail disappears if mouse stops moving
+                // --- End variables ---
+                // Mouse move event to update cursor position and reset timer
                 document.addEventListener('mousemove', (e) => {
                     mouseX = e.clientX;
                     mouseY = e.clientY;
-                    
+                    // --- Show the trail elements when mouse moves ---
+                    cursorTrails.forEach(trail => {
+                        trail.style.opacity = localStorage.getItem('trailOpacity') || '0.7'; // Use saved opacity or default
+                    });
+                    // --- End show trail ---
                     // Update main cursor position
                     cursorDot.style.left = `${mouseX}px`;
                     cursorDot.style.top = `${mouseY}px`;
-                    
                     // Update trail positions
                     for (let i = cursorTrails.length - 1; i > 0; i--) {
                         const prevPos = trailPositions[i - 1];
@@ -1026,28 +1023,59 @@
                             cursorTrails[i].style.top = `${prevPos.y}px`;
                         }
                     }
-                    
                     // Update first trail position
                     if (trailPositions[0].x !== mouseX || trailPositions[0].y !== mouseY) {
                         trailPositions[0] = { x: mouseX, y: mouseY };
                         cursorTrails[0].style.left = `${mouseX}px`;
                         cursorTrails[0].style.top = `${mouseY}px`;
                     }
+                    // --- Reset the timer to hide the trail ---
+                    clearTimeout(hideTrailTimer);
+                    hideTrailTimer = setTimeout(() => {
+                        cursorTrails.forEach(trail => {
+                            trail.style.opacity = '0'; // Set opacity to 0 to hide
+                        });
+                    }, trailHideDelay);
+                    // --- End reset timer ---
                 });
-                
                 // Mouse click effect
                 document.addEventListener('mousedown', () => {
                     cursorDot.classList.add('active');
                 });
-                
                 document.addEventListener('mouseup', () => {
                     cursorDot.classList.remove('active');
                 });
-                
                 // Hide default cursor
                 document.body.style.cursor = 'none';
+                // --- Enforce cursor hiding CSS ---
+                // Create a style element to inject the CSS rule
+                const enforceCursorStyle = document.createElement('style');
+                enforceCursorStyle.id = 'enforce-cursor-style'; // Give it an ID for potential future reference
+                enforceCursorStyle.textContent = `
+                    /* Enforce custom cursor by hiding system cursor globally */
+                    * {
+                        cursor: none !important;
+                    }
+                    /* Ensure the main container and body also hide the cursor */
+                    #main-container,
+                    #bubble-background,
+                    body,
+                    html {
+                        cursor: none !important;
+                    }
+                    /* Ensure cursor elements are on top and don't block interaction */
+                    .cursor-dot,
+                    .cursor-trail {
+                        pointer-events: none; /* Crucial: allows clicks/hoovers to pass through */
+                        z-index: 9999; /* Main dot on top */
+                    }
+                    .cursor-trail {
+                         z-index: 9998; /* Trails slightly below the main dot */
+                    }
+                `;
+                document.head.appendChild(enforceCursorStyle);
+                // --- End Enforce cursor hiding CSS ---
             }
-            
             // Update cursor settings in real-time
             cursorSize.addEventListener('input', () => {
                 const size = cursorSize.value;
@@ -1055,25 +1083,20 @@
                 cursorDot.style.width = `${size}px`;
                 cursorDot.style.height = `${size}px`;
             });
-            
             trailLength.addEventListener('input', () => {
                 trailLengthValue.textContent = `${trailLength.value} particles`;
             });
-            
             trailSpacing.addEventListener('input', () => {
                 trailSpacingValue.textContent = `${trailSpacing.value}px`;
             });
-            
             cursorColor.addEventListener('input', () => {
                 cursorDot.style.backgroundColor = cursorColor.value;
             });
-            
             trailColor.addEventListener('input', () => {
                 cursorTrails.forEach(trail => {
                     trail.style.backgroundColor = trailColor.value;
                 });
             });
-            
             trailOpacity.addEventListener('input', () => {
                 const opacity = trailOpacity.value;
                 trailOpacityValue.textContent = opacity;
@@ -1081,7 +1104,6 @@
                     trail.style.opacity = opacity;
                 });
             });
-            
             // Save cursor settings
             saveCursorSettingsButton.addEventListener('click', () => {
                 localStorage.setItem('cursorSize', cursorSize.value);
@@ -1090,10 +1112,8 @@
                 localStorage.setItem('cursorColor', cursorColor.value);
                 localStorage.setItem('trailColor', trailColor.value);
                 localStorage.setItem('trailOpacity', trailOpacity.value);
-                
                 showMessage("Cursor settings saved!");
             });
-            
             // --- Bubble Animation ---
             function createBubble() {
                 const bubble = document.createElement('div');
@@ -1398,6 +1418,141 @@
             videoInput.addEventListener('keypress', (e) => { 
                 if (e.key === 'Enter') launchVideo();
             });
+            // --- Theme Exporter ---
+            exportThemeButton.addEventListener('click', () => {
+                const themeData = {
+                    theme: localStorage.getItem('theme') || 'light',
+                    incognitoMode: localStorage.getItem('incognitoMode') === 'true',
+                    customGradient: JSON.parse(localStorage.getItem('customGradient')) || {
+                        start: '#6e8efb',
+                        end: '#a777e3',
+                        direction: '135deg'
+                    },
+                    bubbleSettings: {
+                        speed: localStorage.getItem('bubbleSpeed') || '5',
+                        count: localStorage.getItem('bubbleCount') || '45',
+                        color: localStorage.getItem('bubbleColor') || '#3b82f6'
+                    },
+                    cloakSettings: {
+                        title: localStorage.getItem('cloakTitle') || 'Home',
+                        favicon: localStorage.getItem('cloakFavicon') || 'https://ssl.gstatic.com/classroom/favicon.png',
+                        videoTitle: localStorage.getItem('videoTabTitle') || 'Home'
+                    },
+                    cursorSettings: {
+                        size: localStorage.getItem('cursorSize') || '12',
+                        trailLength: localStorage.getItem('trailLength') || '15',
+                        trailSpacing: localStorage.getItem('trailSpacing') || '3',
+                        cursorColor: localStorage.getItem('cursorColor') || '#3b82f6',
+                        trailColor: localStorage.getItem('trailColor') || '#3b82f6',
+                        trailOpacity: localStorage.getItem('trailOpacity') || '0.7'
+                    },
+                    username: localStorage.getItem('username') || ''
+                };
+                const themeText = JSON.stringify(themeData, null, 2);
+                const blob = new Blob([themeText], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'lunar_theme_settings.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showMessage("Theme settings exported successfully!");
+            });
+            // --- Theme Importer ---
+            importThemeButton.addEventListener('click', () => {
+                const file = importThemeFile.files[0];
+                if (!file) {
+                    showMessage("Please select a theme file to import.", false);
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const themeData = JSON.parse(e.target.result);
+                        // Apply theme settings
+                        if (themeData.theme !== undefined) {
+                            applyTheme(themeData.theme);
+                        }
+                        if (themeData.incognitoMode !== undefined) {
+                            applyIncognitoMode(themeData.incognitoMode);
+                        }
+                        if (themeData.customGradient) {
+                            const grad = themeData.customGradient;
+                            document.documentElement.style.setProperty('--custom-gradient-start', grad.start);
+                            document.documentElement.style.setProperty('--custom-gradient-end', grad.end);
+                            document.documentElement.style.setProperty('--custom-gradient-direction', grad.direction);
+                            document.body.style.background = `linear-gradient(${grad.direction}, ${grad.start}, ${grad.end})`;
+                            localStorage.setItem('customGradient', JSON.stringify(grad));
+                            // Update UI elements
+                            gradientStartColor.value = grad.start;
+                            gradientEndColor.value = grad.end;
+                            gradientDirection.value = grad.direction;
+                            updateGradientPreview();
+                        }
+                        if (themeData.bubbleSettings) {
+                            const bs = themeData.bubbleSettings;
+                            localStorage.setItem('bubbleSpeed', bs.speed);
+                            localStorage.setItem('bubbleCount', bs.count);
+                            localStorage.setItem('bubbleColor', bs.color);
+                            bubbleSpeed.value = bs.speed;
+                            bubbleCount.value = bs.count;
+                            bubbleColor.value = bs.color;
+                            bubbleSpeedValue.textContent = `${bs.speed} seconds`;
+                            bubbleCountValue.textContent = `${bs.count} bubbles`;
+                            // Re-generate bubbles with new settings
+                            removeBubbles();
+                            generateBubbles(parseInt(bs.count));
+                        }
+                        if (themeData.cloakSettings) {
+                            const cs = themeData.cloakSettings;
+                            localStorage.setItem('cloakTitle', cs.title);
+                            localStorage.setItem('cloakFavicon', cs.favicon);
+                            localStorage.setItem('videoTabTitle', cs.videoTitle);
+                            loadCloakSettings(); // Reload cloak settings to update the page
+                        }
+                        if (themeData.cursorSettings) {
+                            const curs = themeData.cursorSettings;
+                            localStorage.setItem('cursorSize', curs.size);
+                            localStorage.setItem('trailLength', curs.trailLength);
+                            localStorage.setItem('trailSpacing', curs.trailSpacing);
+                            localStorage.setItem('cursorColor', curs.cursorColor);
+                            localStorage.setItem('trailColor', curs.trailColor);
+                            localStorage.setItem('trailOpacity', curs.trailOpacity);
+                            // Update UI elements
+                            cursorSize.value = curs.size;
+                            trailLength.value = curs.trailLength;
+                            trailSpacing.value = curs.trailSpacing;
+                            cursorColor.value = curs.cursorColor;
+                            trailColor.value = curs.trailColor;
+                            trailOpacity.value = curs.trailOpacity;
+                            // Update preview
+                            cursorSizeValue.textContent = `${curs.size}px`;
+                            trailLengthValue.textContent = `${curs.trailLength} particles`;
+                            trailSpacingValue.textContent = `${curs.trailSpacing}px`;
+                            trailOpacityValue.textContent = curs.trailOpacity;
+                            cursorDot.style.width = `${curs.size}px`;
+                            cursorDot.style.height = `${curs.size}px`;
+                            cursorDot.style.backgroundColor = curs.cursorColor;
+                            cursorTrails.forEach(trail => {
+                                trail.style.backgroundColor = curs.trailColor;
+                                trail.style.opacity = curs.trailOpacity;
+                            });
+                        }
+                        if (themeData.username !== undefined) {
+                            localStorage.setItem('username', themeData.username);
+                            loadUsername();
+                            setGreeting();
+                        }
+                        showMessage("Theme settings imported successfully!");
+                    } catch (error) {
+                        console.error("Error parsing theme file:", error);
+                        showMessage("Error: Invalid theme file format.", false);
+                    }
+                };
+                reader.readAsText(file);
+            });
             // --- Welcome Modal Tabs ---
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -1484,7 +1639,6 @@
                 showPage(mainPage);
                 generateBubbles(parseInt(bubbleCount.value));
                 checkVersion();
-                
                 // Initialize custom cursor
                 initCustomCursor();
             }
