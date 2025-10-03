@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --custom-gradient-start: #6e8efb; /* Default start olor */
+            --custom-gradient-start: #6e8efb; /* Default start color */
             --custom-gradient-end: #a777e3;   /* Default end color */
             --custom-gradient-direction: 135deg; /* Default direction */
         }
@@ -837,7 +837,6 @@
                     </p>
                 </div>
             </div>
-        </div>
         <div id="messageBox" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
             <div class="bg-white p-6 rounded-lg shadow-xl text-center max-w-sm mx-4 border-gradient">
                 <p id="messageText" class="text-gray-800 mb-4"></p>
@@ -1535,42 +1534,37 @@
                     renderHistory();
                 }
             });
-            // --- NEW: Function to handle data URLs ---
-            function openDataUrl(dataUrl) {
-                try {
-                    const newWindow = window.open(dataUrl, '_blank');
-                    if (newWindow) {
-                        setTimeout(() => {
-                            window.location.href = 'https://www.google.com';
-                        }, 100);
-                    } else {
-                        showMessage("Pop-up blocked. Please allow pop-ups for this site.", false);
-                    }
-                } catch (e) {
-                    console.error("Failed to open data URL:", e);
-                    showMessage("Failed to open data URL. It may be malformed.", false);
-                }
-            }
-
-            // --- Core Launcher Logic (UPDATED) ---
+            // --- Core Launcher Logic ---
             function launchVideo(urlToLaunch = null, loopOverride = null) {
                 const input = urlToLaunch || videoInput.value.trim();
+                const shouldLoop = loopOverride !== null ? loopOverride : loopCheckbox.checked;
                 if (!input) {
                     showMessage("Please enter a URL or ID.", false);
                     return;
                 }
-
-                // Handle text/html data URLs directly
-                if (input.startsWith('text/html')) {
-                    if (!urlToLaunch && !isIncognitoMode) {
-                        saveHistory(input);
+                // Check if input is a data:text/html URL
+                if (input.startsWith('data:text/html')) {
+                    try {
+                        // Extract the HTML content from the data URL
+                        const base64Content = input.split(',')[1];
+                        const htmlContent = atob(base64Content);
+                        
+                        // Open the data URL in a new window
+                        const newWindow = window.open(input, '_blank');
+                        if (newWindow) {
+                            // Redirect to Google after a short delay
+                            setTimeout(() => {
+                                window.location.href = 'https://www.google.com';
+                            }, 100);
+                        } else {
+                            showMessage("Pop-up blocked. Please allow pop-ups for this site.", false);
+                        }
+                    } catch (e) {
+                        showMessage("Invalid data URL format.", false);
                     }
-                    openDataUrl(input);
                     return;
                 }
-
-                // Existing YouTube logic
-                const shouldLoop = loopOverride !== null ? loopOverride : loopCheckbox.checked;
+                
                 const videoIdRegex = /(?:v=|\/embed\/|\.be\/|v\/|e\/|watch\?v=|\&v=)([^#\&\?]{11})/;
                 const playlistIdRegex = /(?:list=)([^#\&\?]*)/;
                 const videoIdMatch = input.match(videoIdRegex);
