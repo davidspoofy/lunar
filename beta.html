@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lunar Launcher V2.5 - Theme Importer/Exporter</title>
+    <title>Home</title>
     <link rel="icon" href="https://ssl.gstatic.com/classroom/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:100,300,400,500,700,900,100i,300i,400i,500i,700i,900i">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -154,6 +154,10 @@
             overflow: hidden;
             pointer-events: none;
         }
+        /* Hide bubbles when performance mode is active */
+        body.performance-mode #bubble-background {
+            display: none;
+        }
         .bubble {
             position: absolute;
             bottom: -100px;
@@ -220,6 +224,33 @@
         }
         .dark .incognito-toggle.active {
             background: linear-gradient(135deg, var(--custom-gradient-start), var(--custom-gradient-end));
+            color: white;
+        }
+        /* Performance Mode Toggle Button */
+        .performance-mode-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e5e7eb;
+            color: #4b5563;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .performance-mode-toggle.performance-mode-active {
+            background: linear-gradient(135deg, #4ade80, #22c55e); /* Green gradient */
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(34, 197, 94, 0.4);
+        }
+        .dark .performance-mode-toggle {
+            background-color: #374151;
+            color: #d1d5db;
+        }
+        .dark .performance-mode-toggle.performance-mode-active {
+            background: linear-gradient(135deg, #4ade80, #22c55e); /* Green gradient */
             color: white;
         }
         /* Custom Gradient Settings */
@@ -298,6 +329,10 @@
             transform: translate(-50%, -50%);
             transition: opacity 0.2s ease;
         }
+        /* Hide cursor trail when performance mode is active */
+        body.performance-mode .cursor-trail {
+            opacity: 0 !important; /* Force opacity to 0 */
+        }
         /* Custom Cursor Settings */
         .cursor-settings-container {
             display: none;
@@ -373,7 +408,7 @@
         <div id="mainPage" class="page-transition">
             <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center space-x-3">
-                    <h1 class="text-3xl font-bold text-gray-800">Lunar Launcher V2.5</h1> <!-- Rebranded title -->
+                    <h1 class="text-3xl font-bold text-gray-800">Lunar Launcher V2.6</h1> <!-- Rebranded title -->
                     <span id="incognitoBadge" class="incognito-badge">Incognito</span>
                 </div>
                 <div class="flex space-x-2">
@@ -383,6 +418,12 @@
                     <button id="incognitoToggleButton" class="incognito-toggle border-gradient">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </button>
+                    <!-- Added Performance Mode Toggle Button -->
+                    <button id="performanceModeToggle" class="performance-mode-toggle border-gradient">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </button>
                     <button id="themeToggle" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors border-gradient">
@@ -431,6 +472,11 @@
                 </div>
             </div>
             <div class="text-left">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Performance Mode</h3>
+                <div class="flex items-center mb-4">
+                    <input type="checkbox" id="performanceModeCheckbox" class="h-5 w-5 rounded text-blue-600 focus:ring-2 focus:ring-blue-500">
+                    <label for="performanceModeCheckbox" class="ml-2 text-gray-700 select-none">Enable Performance Mode (Disables Bubbles and Cursor Trail)</label>
+                </div>
                 <h3 class="text-xl font-semibold text-gray-800 mb-4">Custom Gradient Settings</h3>
                 <div class="space-y-4">
                     <div>
@@ -532,6 +578,12 @@
             </div>
             <div class="text-left">
                 <div class="space-y-4">
+                    <!-- NEW: Enable Cursor Trail Toggle -->
+                    <div class="flex items-center mb-4">
+                        <input type="checkbox" id="enableCursorTrailCheckbox" class="h-5 w-5 rounded text-blue-600 focus:ring-2 focus:ring-blue-500">
+                        <label for="enableCursorTrailCheckbox" class="ml-2 text-gray-700 select-none">Enable Cursor Trail</label>
+                    </div>
+                    <!-- END NEW: Enable Cursor Trail Toggle -->
                     <div>
                         <label for="cursorSize" class="block text-gray-700 mb-2">Cursor Size:</label>
                         <input type="range" id="cursorSize" min="4" max="20" value="12" class="w-full px-4 py-2 input-gradient rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -601,6 +653,9 @@
                 <h1 class="text-3xl font-bold text-gray-800 ml-4">Update Log</h1>
             </div>
             <div class="text-left space-y-4">
+                    <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors border-gradient" data-target="v26Page">
+                    <h3 class="text-xl font-semibold text-gray-800">V2.6 - October 1, 2025</h3>
+                </button>
                 <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors border-gradient" data-target="v25Page">
                     <h3 class="text-xl font-semibold text-gray-800">V2.5 - September 27, 2025</h3>
                 </button>
@@ -619,6 +674,23 @@
                 <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors border-gradient" data-target="v20Page">
                     <h3 class="text-xl font-semibold text-gray-800">V2.0 - September 10, 2025</h3>
                 </button>
+            </div>
+        </div>
+          <div id="v26Page" class="page-transition hidden">
+            <div class="flex items-center mb-6">
+                <button id="backFromV26Button" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </button>
+                <h1 class="text-3xl font-bold text-gray-800 ml-4">Update V2.6</h1>
+            </div>
+            <div class="text-left p-4 bg-gray-100 rounded-lg border-gradient">
+                <h3 class="text-xl font-semibold text-gray-800">V2.6 - October 1, 2025</h3>
+                <ul class="list-disc list-inside mt-2 text-gray-600">
+                    <li><strong>Performance Button</strong> Fixed the CPU eating mass in testing.</li>
+                    <li><strong>Theme Exporter & Importer</strong> Fixed the CPU eating mass in testing.</li>
+                </ul>
             </div>
         </div>
         <div id="v25Page" class="page-transition hidden">
@@ -765,6 +837,7 @@
                     </p>
                 </div>
             </div>
+        </div>
         <div id="messageBox" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
             <div class="bg-white p-6 rounded-lg shadow-xl text-center max-w-sm mx-4 border-gradient">
                 <p id="messageText" class="text-gray-800 mb-4"></p>
@@ -838,7 +911,7 @@
     <div class="cursor-trail" id="cursorTrail14"></div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const currentVersion = '2.5'; // Updated current version
+            const currentVersion = '2.6'; // Updated current version
             // --- DOM Element Selection ---
             const videoInput = document.getElementById('videoInput');
             const goButton = document.getElementById('goButton');
@@ -859,6 +932,7 @@
             const cursorSettingsPage = document.getElementById('cursorSettingsPage');
             const helpPage = document.getElementById('helpPage');
             const updateLogMainPage = document.getElementById('updateLogMainPage');
+            const v26Page = document.getElementById('v26Page'); // Added v26 page
             const v25Page = document.getElementById('v25Page'); // Added v25 page
             const v24Page = document.getElementById('v24Page'); // Added v24 page
             const v23Page = document.getElementById('v23Page');
@@ -867,7 +941,7 @@
             const v20Page = document.getElementById('v20Page');
             const profilePage = document.getElementById('profilePage');
             const creditsPage = document.getElementById('creditsPage');
-            const archivePage = document.getElementById('archivePage'); 
+            const archivePage = document.getElementById('archivePage');
             // Buttons
             const settingsButton = document.getElementById('settingsButton');
             const updateLogButton = document.getElementById('updateLogButton');
@@ -882,6 +956,7 @@
             const backFromCursorSettingsButton = document.getElementById('backFromCursorSettingsButton');
             const backFromHelpButton = document.getElementById('backFromHelpButton');
             const backFromUpdateLogMainButton = document.getElementById('backFromUpdateLogMainButton');
+            const backFromV26Button = document.getElementById('backFromV26Button'); // Added v26 button 
             const backFromV25Button = document.getElementById('backFromV25Button'); // Added v25 button
             const backFromV24Button = document.getElementById('backFromV24Button'); // Added v24 button
             const backFromV23Button = document.getElementById('backFromV23Button');
@@ -891,6 +966,11 @@
             const backFromProfileButton = document.getElementById('backFromProfileButton');
             const backFromCreditsButton = document.getElementById('backFromCreditsButton');
             const backFromArchiveButton = document.getElementById('backFromArchiveButton');
+            // Performance Mode Elements
+            const performanceModeToggle = document.getElementById('performanceModeToggle');
+            const performanceModeCheckbox = document.getElementById('performanceModeCheckbox');
+            // Cursor Settings Elements (including new trail toggle)
+            const enableCursorTrailCheckbox = document.getElementById('enableCursorTrailCheckbox');
             // Cloak Settings
             const cloakTitleInput = document.getElementById('cloakTitleInput');
             const cloakFaviconInput = document.getElementById('cloakFaviconInput');
@@ -958,6 +1038,43 @@
             for (let i = 0; i < cursorTrails.length; i++) {
                 trailPositions.push({ x: 0, y: 0 });
             }
+            // --- Performance Mode Logic ---
+            let performanceMode = false; // Flag for performance mode state
+            function applyPerformanceMode(enabled) {
+                performanceMode = enabled;
+                if (enabled) {
+                    // Disable bubbles
+                    if (bubbleInterval) {
+                        clearInterval(bubbleInterval);
+                        bubbleInterval = null;
+                    }
+                    // Hide bubbles container
+                    document.body.classList.add('performance-mode');
+                    // Hide cursor trails (overrides individual setting)
+                    cursorTrails.forEach(trail => {
+                        trail.style.opacity = '0';
+                    });
+                    // Update UI elements
+                    performanceModeToggle.classList.add('performance-mode-active');
+                    performanceModeCheckbox.checked = true;
+                } else {
+                    // Re-enable bubbles if not already running
+                    if (!bubbleInterval) {
+                        generateBubbles(currentBubbleCount);
+                    }
+                    // Show bubbles container
+                    document.body.classList.remove('performance-mode');
+                    // Show cursor trails based on individual setting
+                    updateCursorTrailVisibility();
+                    // Update UI elements
+                    performanceModeToggle.classList.remove('performance-mode-active');
+                    performanceModeCheckbox.checked = false;
+                }
+                localStorage.setItem('performanceMode', enabled ? 'true' : 'false');
+            }
+            function togglePerformanceMode() {
+                applyPerformanceMode(!performanceMode);
+            }
             // --- Custom Cursor Implementation ---
             function initCustomCursor() {
                 // Load cursor settings from localStorage
@@ -967,6 +1084,7 @@
                 const savedCursorColor = localStorage.getItem('cursorColor');
                 const savedTrailColor = localStorage.getItem('trailColor');
                 const savedTrailOpacity = localStorage.getItem('trailOpacity');
+                const savedCursorTrailEnabled = localStorage.getItem('cursorTrailEnabled'); // NEW: Load trail enabled state
                 if (savedCursorSize) {
                     cursorSize.value = savedCursorSize;
                     cursorSizeValue.textContent = `${savedCursorSize}px`;
@@ -994,10 +1112,17 @@
                 if (savedTrailOpacity) {
                     trailOpacity.value = savedTrailOpacity;
                     trailOpacityValue.textContent = savedTrailOpacity;
-                    cursorTrails.forEach(trail => {
-                        trail.style.opacity = savedTrailOpacity;
-                    });
+                    // Apply initial opacity, but respect performance mode and individual setting
+                    updateCursorTrailVisibility();
                 }
+                // NEW: Apply saved cursor trail enabled state
+                if (savedCursorTrailEnabled !== null) {
+                    enableCursorTrailCheckbox.checked = savedCursorTrailEnabled === 'true';
+                } else {
+                    // Default to true if not saved
+                    enableCursorTrailCheckbox.checked = true;
+                }
+                updateCursorTrailVisibility(); // Apply initial state
                 // --- Add these variables for trail fade logic ---
                 let hideTrailTimer = null;
                 const trailHideDelay = 200; // Time in milliseconds after which trail disappears if mouse stops moving
@@ -1006,10 +1131,12 @@
                 document.addEventListener('mousemove', (e) => {
                     mouseX = e.clientX;
                     mouseY = e.clientY;
-                    // --- Show the trail elements when mouse moves ---
-                    cursorTrails.forEach(trail => {
-                        trail.style.opacity = localStorage.getItem('trailOpacity') || '0.7'; // Use saved opacity or default
-                    });
+                    // --- Show the trail elements when mouse moves (unless performance mode is on or trail is disabled) ---
+                    if (!performanceMode && enableCursorTrailCheckbox.checked) { // Check both performance mode and individual setting
+                        cursorTrails.forEach(trail => {
+                            trail.style.opacity = localStorage.getItem('trailOpacity') || '0.7'; // Use saved opacity or default
+                        });
+                    }
                     // --- End show trail ---
                     // Update main cursor position
                     cursorDot.style.left = `${mouseX}px`;
@@ -1032,9 +1159,11 @@
                     // --- Reset the timer to hide the trail ---
                     clearTimeout(hideTrailTimer);
                     hideTrailTimer = setTimeout(() => {
-                        cursorTrails.forEach(trail => {
-                            trail.style.opacity = '0'; // Set opacity to 0 to hide
-                        });
+                        if (!performanceMode && enableCursorTrailCheckbox.checked) { // Only hide trails if performance mode is off AND trail is enabled
+                            cursorTrails.forEach(trail => {
+                                trail.style.opacity = '0'; // Set opacity to 0 to hide
+                            });
+                        }
                     }, trailHideDelay);
                     // --- End reset timer ---
                 });
@@ -1076,6 +1205,21 @@
                 document.head.appendChild(enforceCursorStyle);
                 // --- End Enforce cursor hiding CSS ---
             }
+            // NEW: Function to update cursor trail visibility based on performance mode and individual setting
+            function updateCursorTrailVisibility() {
+                if (performanceMode || !enableCursorTrailCheckbox.checked) {
+                    // Hide trails if performance mode is on OR if trail is individually disabled
+                    cursorTrails.forEach(trail => {
+                        trail.style.opacity = '0';
+                    });
+                } else {
+                    // Show trails based on saved opacity if both performance mode is off AND trail is enabled
+                    const savedOpacity = localStorage.getItem('trailOpacity') || '0.7';
+                    cursorTrails.forEach(trail => {
+                        trail.style.opacity = savedOpacity;
+                    });
+                }
+            }
             // Update cursor settings in real-time
             cursorSize.addEventListener('input', () => {
                 const size = cursorSize.value;
@@ -1100,9 +1244,16 @@
             trailOpacity.addEventListener('input', () => {
                 const opacity = trailOpacity.value;
                 trailOpacityValue.textContent = opacity;
-                cursorTrails.forEach(trail => {
-                    trail.style.opacity = opacity;
-                });
+                if (!performanceMode && enableCursorTrailCheckbox.checked) { // Only apply if performance mode is off AND trail is enabled
+                    cursorTrails.forEach(trail => {
+                        trail.style.opacity = opacity;
+                    });
+                }
+            });
+            // NEW: Event listener for the cursor trail toggle
+            enableCursorTrailCheckbox.addEventListener('change', () => {
+                localStorage.setItem('cursorTrailEnabled', enableCursorTrailCheckbox.checked ? 'true' : 'false');
+                updateCursorTrailVisibility(); // Update visibility based on new state
             });
             // Save cursor settings
             saveCursorSettingsButton.addEventListener('click', () => {
@@ -1112,10 +1263,13 @@
                 localStorage.setItem('cursorColor', cursorColor.value);
                 localStorage.setItem('trailColor', trailColor.value);
                 localStorage.setItem('trailOpacity', trailOpacity.value);
+                // NEW: Save cursor trail enabled state when saving settings
+                localStorage.setItem('cursorTrailEnabled', enableCursorTrailCheckbox.checked ? 'true' : 'false');
                 showMessage("Cursor settings saved!");
             });
             // --- Bubble Animation ---
             function createBubble() {
+                if (performanceMode) return; // Don't create bubbles if performance mode is on
                 const bubble = document.createElement('div');
                 bubble.className = 'bubble';
                 const size = Math.random() * 40 + 10;
@@ -1131,6 +1285,7 @@
                 }, 8888888);
             }
             function generateBubbles(count) {
+                if (performanceMode) return; // Don't generate bubbles if performance mode is on
                 for (let i = 0; i < count; i++) {
                     createBubble();
                 }
@@ -1269,27 +1424,38 @@
             // --- Bubble Settings ---
             bubbleSpeed.addEventListener('input', () => {
                 bubbleSpeedValue.textContent = `${bubbleSpeed.value} seconds`;
-                clearInterval(bubbleInterval);
-                generateBubbles(currentBubbleCount);
+                if (!performanceMode) { // Only update interval if performance mode is off
+                    clearInterval(bubbleInterval);
+                    generateBubbles(currentBubbleCount);
+                }
             });
             bubbleCount.addEventListener('input', () => {
                 bubbleCountValue.textContent = `${bubbleCount.value} bubbles`;
                 currentBubbleCount = parseInt(bubbleCount.value);
-                removeBubbles();
-                generateBubbles(currentBubbleCount);
+                if (!performanceMode) { // Only update if performance mode is off
+                    removeBubbles();
+                    generateBubbles(currentBubbleCount);
+                }
             });
             bubbleColor.addEventListener('input', () => {
-                const bubbles = document.querySelectorAll('.bubble');
-                bubbles.forEach(bubble => {
-                    bubble.style.backgroundColor = bubbleColor.value;
-                });
+                if (!performanceMode) { // Only update if performance mode is off
+                    const bubbles = document.querySelectorAll('.bubble');
+                    bubbles.forEach(bubble => {
+                        bubble.style.backgroundColor = bubbleColor.value;
+                    });
+                }
             });
             removeBubblesButton.addEventListener('click', () => {
                 removeBubbles();
+                if (performanceMode) { // If performance mode is on, ensure bubbles are gone
+                    removeBubbles(); // Call again just in case
+                }
             });
             addBubblesButton.addEventListener('click', () => {
-                removeBubbles();
-                generateBubbles(parseInt(bubbleCount.value));
+                if (!performanceMode) { // Only add if performance mode is off
+                    removeBubbles();
+                    generateBubbles(parseInt(bubbleCount.value));
+                }
             });
             // --- ARCHIVE/HISTORY FUNCTIONS ---
             function getHistory() {
@@ -1369,14 +1535,42 @@
                     renderHistory();
                 }
             });
-            // --- Core Launcher Logic ---
+            // --- NEW: Function to handle data URLs ---
+            function openDataUrl(dataUrl) {
+                try {
+                    const newWindow = window.open(dataUrl, '_blank');
+                    if (newWindow) {
+                        setTimeout(() => {
+                            window.location.href = 'https://www.google.com';
+                        }, 100);
+                    } else {
+                        showMessage("Pop-up blocked. Please allow pop-ups for this site.", false);
+                    }
+                } catch (e) {
+                    console.error("Failed to open data URL:", e);
+                    showMessage("Failed to open data URL. It may be malformed.", false);
+                }
+            }
+
+            // --- Core Launcher Logic (UPDATED) ---
             function launchVideo(urlToLaunch = null, loopOverride = null) {
                 const input = urlToLaunch || videoInput.value.trim();
-                const shouldLoop = loopOverride !== null ? loopOverride : loopCheckbox.checked;
                 if (!input) {
                     showMessage("Please enter a URL or ID.", false);
                     return;
                 }
+
+                // Handle text/html data URLs directly
+                if (input.startsWith('text/html')) {
+                    if (!urlToLaunch && !isIncognitoMode) {
+                        saveHistory(input);
+                    }
+                    openDataUrl(input);
+                    return;
+                }
+
+                // Existing YouTube logic
+                const shouldLoop = loopOverride !== null ? loopOverride : loopCheckbox.checked;
                 const videoIdRegex = /(?:v=|\/embed\/|\.be\/|v\/|e\/|watch\?v=|\&v=)([^#\&\?]{11})/;
                 const playlistIdRegex = /(?:list=)([^#\&\?]*)/;
                 const videoIdMatch = input.match(videoIdRegex);
@@ -1423,6 +1617,8 @@
                 const themeData = {
                     theme: localStorage.getItem('theme') || 'light',
                     incognitoMode: localStorage.getItem('incognitoMode') === 'true',
+                    performanceMode: localStorage.getItem('performanceMode') === 'true', // Add performance mode to export
+                    cursorTrailEnabled: localStorage.getItem('cursorTrailEnabled') === 'true', // NEW: Add cursor trail enabled to export
                     customGradient: JSON.parse(localStorage.getItem('customGradient')) || {
                         start: '#6e8efb',
                         end: '#a777e3',
@@ -1478,6 +1674,16 @@
                         if (themeData.incognitoMode !== undefined) {
                             applyIncognitoMode(themeData.incognitoMode);
                         }
+                        // Apply Performance Mode setting if present in import
+                        if (themeData.performanceMode !== undefined) {
+                            applyPerformanceMode(themeData.performanceMode);
+                        }
+                        // NEW: Apply Cursor Trail Enabled setting if present in import
+                        if (themeData.cursorTrailEnabled !== undefined) {
+                            localStorage.setItem('cursorTrailEnabled', themeData.cursorTrailEnabled ? 'true' : 'false');
+                            enableCursorTrailCheckbox.checked = themeData.cursorTrailEnabled;
+                            updateCursorTrailVisibility(); // Update visibility after loading setting
+                        }
                         if (themeData.customGradient) {
                             const grad = themeData.customGradient;
                             document.documentElement.style.setProperty('--custom-gradient-start', grad.start);
@@ -1501,9 +1707,11 @@
                             bubbleColor.value = bs.color;
                             bubbleSpeedValue.textContent = `${bs.speed} seconds`;
                             bubbleCountValue.textContent = `${bs.count} bubbles`;
-                            // Re-generate bubbles with new settings
-                            removeBubbles();
-                            generateBubbles(parseInt(bs.count));
+                            // Re-generate bubbles with new settings (only if performance mode is off)
+                            if (!performanceMode) {
+                                removeBubbles();
+                                generateBubbles(parseInt(bs.count));
+                            }
                         }
                         if (themeData.cloakSettings) {
                             const cs = themeData.cloakSettings;
@@ -1535,10 +1743,11 @@
                             cursorDot.style.width = `${curs.size}px`;
                             cursorDot.style.height = `${curs.size}px`;
                             cursorDot.style.backgroundColor = curs.cursorColor;
+                            // Apply settings to trails, respecting performance mode and individual setting
                             cursorTrails.forEach(trail => {
                                 trail.style.backgroundColor = curs.trailColor;
-                                trail.style.opacity = curs.trailOpacity;
                             });
+                            updateCursorTrailVisibility(); // Apply saved opacity and enabled state
                         }
                         if (themeData.username !== undefined) {
                             localStorage.setItem('username', themeData.username);
@@ -1590,6 +1799,7 @@
             backFromHelpButton.addEventListener('click', () => showPage(settingsPage));
             backFromCreditsButton.addEventListener('click', () => showPage(settingsPage));
             backFromProfileButton.addEventListener('click', () => showPage(settingsPage));
+            backFromV26Button.addEventListener('click', () => showPage(updateLogMainPage)); // Added v26 button listener
             backFromV25Button.addEventListener('click', () => showPage(updateLogMainPage)); // Added v25 button listener
             backFromV24Button.addEventListener('click', () => showPage(updateLogMainPage)); // Added v24 button listener
             backFromV23Button.addEventListener('click', () => showPage(updateLogMainPage));
@@ -1602,6 +1812,11 @@
                 welcomeModal.classList.add('hidden');
                 localStorage.setItem('lastSeenVersion', currentVersion);
             });
+            // --- Performance Mode Event Listeners ---
+            performanceModeToggle.addEventListener('click', togglePerformanceMode);
+            performanceModeCheckbox.addEventListener('change', () => {
+                 applyPerformanceMode(performanceModeCheckbox.checked);
+            });
             // --- INITIALIZATION ---
             function initialize() {
                 const savedTheme = localStorage.getItem('theme');
@@ -1609,6 +1824,9 @@
                 applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
                 const savedIncognito = localStorage.getItem('incognitoMode');
                 applyIncognitoMode(savedIncognito === 'true');
+                // Load Performance Mode setting
+                const savedPerformanceMode = localStorage.getItem('performanceMode');
+                applyPerformanceMode(savedPerformanceMode === 'true');
                 // Load gradient settings
                 const savedGradient = localStorage.getItem('customGradient');
                 if (savedGradient) {
@@ -1637,7 +1855,10 @@
                 loadUsername();
                 setGreeting();
                 showPage(mainPage);
-                generateBubbles(parseInt(bubbleCount.value));
+                // Only start generating bubbles if performance mode is off
+                if (!performanceMode) {
+                    generateBubbles(parseInt(bubbleCount.value));
+                }
                 checkVersion();
                 // Initialize custom cursor
                 initCustomCursor();
