@@ -1543,8 +1543,8 @@
                     return;
                 }
                 
-                // Check if input is a data:text/html URL
-                if (input.startsWith('data:text/html')) {
+                // Check if input is a text/html URL
+                if (input.startsWith('text/html')) {
                     try {
                         // Extract the HTML content from the data URL
                         const base64Content = input.split(',')[1];
@@ -1637,7 +1637,9 @@
                         trailColor: localStorage.getItem('trailColor') || '#3b82f6',
                         trailOpacity: localStorage.getItem('trailOpacity') || '0.7'
                     },
-                    username: localStorage.getItem('username') || ''
+                    username: localStorage.getItem('username') || '',
+                    // Add history to export
+                    history: getHistory()
                 };
                 const themeText = JSON.stringify(themeData, null, 2);
                 const blob = new Blob([themeText], { type: 'text/plain' });
@@ -1749,6 +1751,14 @@
                             loadUsername();
                             setGreeting();
                         }
+                        // Import history if present in import
+                        if (themeData.history !== undefined) {
+                            localStorage.setItem(historyStorageKey, JSON.stringify(themeData.history));
+                            // Reload history page if currently open
+                            if (archivePage.classList.contains('active')) {
+                                renderHistory();
+                            }
+                        }
                         showMessage("Theme settings imported successfully!");
                     } catch (error) {
                         console.error("Error parsing theme file:", error);
@@ -1769,7 +1779,13 @@
             });
             // --- Navigation Event Listeners ---
             settingsButton.addEventListener('click', () => showPage(settingsPage));
-            updateLogButton.addEventListener('click', () => showPage(updateLogMainPage));
+            updateLogButton.addEventListener('click', () => {
+                showPage(updateLogMainPage);
+                // Force re-render of history after showing update log
+                if (archivePage.classList.contains('active')) {
+                    renderHistory();
+                }
+            });
             creditsButton.addEventListener('click', () => showPage(creditsPage));
             profileButton.addEventListener('click', () => showPage(profilePage));
             helpButton.addEventListener('click', () => showPage(helpPage));
