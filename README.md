@@ -14,7 +14,7 @@ P.S. This can be used to unrestrict restricions on your enterprises (school or w
 - **All Content Types**: Watch **Shorts**, **standard videos**, and **playlists** seamlessly.
 - **Ultra Lightweight**: A single HTML file — no installation or setup needed.
 - **Beta Previews**: Test upcoming features directly in the github (beta.html)
-- **Lightweight**: The html file is less than >100kb
+- **Lightweight**: The html file is less than >1mb
 
 ---
 
