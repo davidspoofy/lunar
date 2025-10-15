@@ -1,6 +1,8 @@
 # 🌙 Lunar - Ad-Free YouTube Streaming
 
-![Lunar Banner](https://raw.githubusercontent.com/davidspoofy/assets/refs/heads/main/unar.png)
+<div align="center">
+  <img src="https://raw.githubusercontent.com/davidspoofy/assets/refs/heads/main/unar.png" alt="Lunar Logo" width="200"/>
+</div>
 
 **Lunar** is a lightweight, single-file HTML that lets you stream YouTube videos **without ads** — including **Shorts**, **regular videos**, and **playlists**. Just open the HTML file in your browser and start watching!
 P.S. This can be used to unrestrict restricions on your enterprises (school or work)
