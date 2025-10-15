@@ -408,7 +408,7 @@
         <div id="mainPage" class="page-transition">
             <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center space-x-3">
-                    <h1 class="text-3xl font-bold text-gray-800">Lunar Launcher V2.6</h1> <!-- Rebranded title -->
+                    <h1 class="text-3xl font-bold text-gray-800">Lunar Launcher V3.0</h1> <!-- Rebranded title -->
                     <span id="incognitoBadge" class="incognito-badge">Incognito</span>
                 </div>
                 <div class="flex space-x-2">
@@ -437,7 +437,7 @@
                 </div>
             </div>
             <p id="greetingText" class="text-xl font-medium text-gray-800 mb-4"></p>
-            <p class="text-gray-600 mb-4">Enter a YouTube video or playlist URL or ID to launch it in a new tab.</p>
+            <p class="text-gray-600 mb-4">Enter a YouTube video, playlist, or shorts URL or ID to launch it in a new tab.</p>
             <div class="mb-4">
                 <input type="text" id="videoInput" placeholder="Paste YouTube URL or ID here" class="flex-grow w-full px-4 py-3 input-gradient rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
             </div>
@@ -634,10 +634,10 @@
                 <h1 class="text-3xl font-bold text-gray-800 ml-4">Help</h1>
             </div>
             <p class="text-gray-600 text-left mb-4">
-                Welcome to Lunar Launcher! This tool allows you to easily open YouTube videos and playlists in a new tab. This can be useful for focusing on the video content without distractions.
+                Welcome to Lunar Launcher! This tool allows you to easily open YouTube videos, playlists, and shorts in a new tab. This can be useful for focusing on the video content without distractions.
             </p>
             <p class="text-gray-600 text-left mb-4">
-                Simply paste a YouTube video URL, video ID, or playlist URL into the text box on the main page. The launcher will automatically detect the video and playlist IDs from the link.
+                Simply paste a YouTube video URL, video ID, playlist URL, or shorts URL into the text box on the main page. The launcher will automatically detect the video and playlist IDs from the link.
             </p>
             <p class="text-gray-600 text-left">
                 You can also customize the appearance of the launcher and the video tabs in the Settings menu. This includes changing the title and favicon to make it look like a different website.
@@ -653,6 +653,12 @@
                 <h1 class="text-3xl font-bold text-gray-800 ml-4">Update Log</h1>
             </div>
             <div class="text-left space-y-4">
+                <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors border-gradient" data-target="v30Page">
+                    <h3 class="text-xl font-semibold text-gray-800">V3.0 - October 3, 2025</h3>
+                </button>
+                <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors border-gradient" data-target="v27Page">
+                    <h3 class="text-xl font-semibold text-gray-800">V2.7 - October 2, 2025</h3>
+                </button>
                     <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors border-gradient" data-target="v26Page">
                     <h3 class="text-xl font-semibold text-gray-800">V2.6 - October 1, 2025</h3>
                 </button>
@@ -674,6 +680,39 @@
                 <button class="update-log-version-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors border-gradient" data-target="v20Page">
                     <h3 class="text-xl font-semibold text-gray-800">V2.0 - September 10, 2025</h3>
                 </button>
+            </div>
+        </div>
+        <div id="v30Page" class="page-transition hidden">
+            <div class="flex items-center mb-6">
+                <button id="backFromV30Button" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </button>
+                <h1 class="text-3xl font-bold text-gray-800 ml-4">Update V3.0</h1>
+            </div>
+            <div class="text-left p-4 bg-gray-100 rounded-lg border-gradient">
+                <h3 class="text-xl font-semibold text-gray-800">V3.0 - October 3, 2025</h3>
+                <ul class="list-disc list-inside mt-2 text-gray-600">
+                    <li><strong>Shorts Support:</strong> Added support for YouTube Shorts URLs.</li>
+                    <li><strong>Enhanced Parsing:</strong> Improved URL parsing to handle various YouTube formats including shorts.</li>
+                </ul>
+            </div>
+        </div>
+        <div id="v27Page" class="page-transition hidden">
+            <div class="flex items-center mb-6">
+                <button id="backFromV27Button" class="p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors text-sm font-medium border-gradient">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </button>
+                <h1 class="text-3xl font-bold text-gray-800 ml-4">Update V2.7</h1>
+            </div>
+            <div class="text-left p-4 bg-gray-100 rounded-lg border-gradient">
+                <h3 class="text-xl font-semibold text-gray-800">V2.7 - October 1, 2025</h3>
+                <ul class="list-disc list-inside mt-2 text-gray-600">
+                    <li><strong>Sync Importer File</strong> New 2.7 Feature..</li>
+                </ul>
             </div>
         </div>
           <div id="v26Page" class="page-transition hidden">
@@ -861,23 +900,23 @@
                 <div id="welcome-tab" class="tab-content active text-left">
                     <h2 class="text-2xl font-bold mb-4 text-gray-800">Welcome to Lunar Launcher!</h2>
                     <p class="text-gray-600 mb-4">
-                        This tool allows you to easily open YouTube videos and playlists in a new tab, helping you to focus on the content without distractions.
+                        This tool allows you to easily open YouTube videos, playlists, and shorts in a new tab, helping you to focus on the content without distractions.
                     </p>
                     <p class="text-gray-600">
                         Use the buttons and inputs to get started. You can also customize your experience in the Settings menu.
                     </p>
                 </div>
                 <div id="whats-new-tab" class="tab-content text-left">
-                    <h2 class="text-2xl font-bold mb-4 text-gray-800">What's New in Version 2.5</h2>
+                    <h2 class="text-2xl font-bold mb-4 text-gray-800">What's New in Version 3.0</h2>
                     <ul class="list-disc list-inside space-y-2 text-gray-600">
-                        <li><strong>Fixed Cloak button.</strong> Fixed the Cloak button on the home page.</li>
-                        <li><strong>Update Log:</strong> Added V2.5 update log.</li>
+                        <li><strong>Shorts Support:</strong> Added support for YouTube Shorts URLs.</li>
+                        <li><strong>Enhanced Parsing:</strong> Improved URL parsing to handle various YouTube formats including shorts.</li>
                     </ul>
                 </div>
                 <div id="about-tab" class="tab-content text-left">
                     <h2 class="text-2xl font-bold mb-4 text-gray-800">About Lunar Launcher</h2>
                     <p class="text-gray-600 mb-4">
-                        Lunar Launcher was created to provide a simple, clean, and distraction-free way to watch YouTube content. It's a quick and easy solution for launching videos and playlists without the clutter of the standard YouTube interface with no ads!!.
+                        Lunar Launcher was created to provide a simple, clean, and distraction-free way to watch YouTube content. It's a quick and easy solution for launching videos, playlists, and shorts without the clutter of the standard YouTube interface with no ads!!.
                     </p>
                     <p class="text-gray-600">
                         We hope you enjoy using it! -livid
@@ -910,7 +949,7 @@
     <div class="cursor-trail" id="cursorTrail14"></div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const currentVersion = '2.6'; // Updated current version
+            const currentVersion = '3.0'; // Updated current version
             // --- DOM Element Selection ---
             const videoInput = document.getElementById('videoInput');
             const goButton = document.getElementById('goButton');
@@ -931,6 +970,8 @@
             const cursorSettingsPage = document.getElementById('cursorSettingsPage');
             const helpPage = document.getElementById('helpPage');
             const updateLogMainPage = document.getElementById('updateLogMainPage');
+            const v30Page = document.getElementById('v30Page'); // Added v30 page
+            const v27Page = document.getElementById('v27Page'); // Added v27 page
             const v26Page = document.getElementById('v26Page'); // Added v26 page
             const v25Page = document.getElementById('v25Page'); // Added v25 page
             const v24Page = document.getElementById('v24Page'); // Added v24 page
@@ -955,6 +996,8 @@
             const backFromCursorSettingsButton = document.getElementById('backFromCursorSettingsButton');
             const backFromHelpButton = document.getElementById('backFromHelpButton');
             const backFromUpdateLogMainButton = document.getElementById('backFromUpdateLogMainButton');
+            const backFromV30Button = document.getElementById('backFromV30Button'); // Added v30 button 
+            const backFromV27Button = document.getElementById('backFromV27Button'); // Added v27 button 
             const backFromV26Button = document.getElementById('backFromV26Button'); // Added v26 button 
             const backFromV25Button = document.getElementById('backFromV25Button'); // Added v25 button
             const backFromV24Button = document.getElementById('backFromV24Button'); // Added v24 button
@@ -1478,9 +1521,11 @@
                 }
                 clearHistoryBtn.classList.remove('hidden');
                 const videoIdRegex = /(?:v=|\/embed\/|\.be\/|v\/|e\/|watch\?v=|\&v=)([^#\&\?]{11})/;
+                const shortsIdRegex = /\/shorts\/([^#\&\?]+)/;
                 let historyHtml = '';
                 for (const item of history) {
                     const videoIdMatch = item.url.match(videoIdRegex);
+                    const shortsIdMatch = item.url.match(shortsIdRegex);
                     let cardHtml;
                     if (videoIdMatch) {
                         try {
@@ -1507,6 +1552,12 @@
                                             <div class="flex items-center space-x-2 p-2 history-loop-container"><input type="checkbox" class="history-loop-checkbox"><label class="text-gray-700 select-none">Loop</label></div>
                                         </div>`;
                         }
+                    } else if (shortsIdMatch) {
+                        // For shorts, we'll use a placeholder since noembed doesn't support shorts
+                        cardHtml = `<div class="flex items-center space-x-4 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors history-card border-gradient" data-url="${item.url}">
+                                        <div class="w-32 h-18 bg-gray-300 rounded-md flex-shrink-0 flex items-center justify-center text-gray-500">Shorts</div>
+                                        <div class="flex-grow"><p class="font-medium truncate text-gray-800">${item.url}</p><p class="text-sm text-gray-500">${item.launchedAt}</p></div>
+                                    </div>`;
                     } else {
                          cardHtml = `<div class="flex items-center space-x-4 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors history-card border-gradient" data-url="${item.url}">
                                         <div class="w-32 h-18 bg-gray-300 rounded-md flex-shrink-0 flex items-center justify-center text-gray-500">Playlist</div>
@@ -1542,14 +1593,12 @@
                     showMessage("Please enter a URL or ID.", false);
                     return;
                 }
-                
                 // Check if input is a text/html URL
                 if (input.startsWith('text/html')) {
                     try {
                         // Extract the HTML content from the data URL
                         const base64Content = input.split(',')[1];
                         const htmlContent = atob(base64Content);
-                        
                         // Open the data URL in a new window
                         const newWindow = window.open(input, '_blank');
                         if (newWindow) {
@@ -1565,13 +1614,21 @@
                     }
                     return;
                 }
-                
                 const videoIdRegex = /(?:v=|\/embed\/|\.be\/|v\/|e\/|watch\?v=|\&v=)([^#\&\?]{11})/;
                 const playlistIdRegex = /(?:list=)([^#\&\?]*)/;
+                const shortsIdRegex = /\/shorts\/([^#\&\?]+)/;
+                
                 const videoIdMatch = input.match(videoIdRegex);
                 const playlistIdMatch = input.match(playlistIdRegex);
+                const shortsIdMatch = input.match(shortsIdRegex);
+                
                 let embedUrl;
-                if (playlistIdMatch) {
+                
+                if (shortsIdMatch) {
+                    // Handle YouTube Shorts
+                    embedUrl = `https://www.youtube-nocookie.com/embed/${shortsIdMatch[1]}?autoplay=1`;
+                    if (shouldLoop) embedUrl += `&loop=1&playlist=${shortsIdMatch[1]}`;
+                } else if (playlistIdMatch) {
                     embedUrl = `https://www.youtube-nocookie.com/embed/videoseries?list=${playlistIdMatch[1]}&autoplay=1`;
                 } else if (videoIdMatch) {
                     embedUrl = `https://www.youtube-nocookie.com/embed/${videoIdMatch[1]}?autoplay=1`;
@@ -1579,11 +1636,12 @@
                 } else {
                     embedUrl = `https://www.youtube-nocookie.com/embed/${input}?autoplay=1`;
                 }
+                
                 if (embedUrl) {
                     if (!urlToLaunch && !isIncognitoMode) saveHistory(input); // Only save if not incognito
                     openAndRedirect(embedUrl);
                 } else {
-                    showMessage("Could not find a valid YouTube Video or Playlist ID.", false);
+                    showMessage("Could not find a valid YouTube Video, Playlist, or Shorts ID.", false);
                 }
             }
             function openAndRedirect(embedUrl) {
@@ -1810,6 +1868,8 @@
             backFromHelpButton.addEventListener('click', () => showPage(settingsPage));
             backFromCreditsButton.addEventListener('click', () => showPage(settingsPage));
             backFromProfileButton.addEventListener('click', () => showPage(settingsPage));
+            backFromV30Button.addEventListener('click', () => showPage(updateLogMainPage)); // Added v30 button listener
+            backFromV27Button.addEventListener('click', () => showPage(updateLogMainPage)); // Added v27 button listener
             backFromV26Button.addEventListener('click', () => showPage(updateLogMainPage)); // Added v26 button listener
             backFromV25Button.addEventListener('click', () => showPage(updateLogMainPage)); // Added v25 button listener
             backFromV24Button.addEventListener('click', () => showPage(updateLogMainPage)); // Added v24 button listener
