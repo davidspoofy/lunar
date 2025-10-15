@@ -47,7 +47,7 @@ Toggle experimental tools right in the app:
 
 - Lunar is **not affiliated** with YouTube or Google.
 - Use only for **personal, lawful viewing** of publicly available content.
-- Ad removal happens **client-side** — your usage must comply with YouTube’s Terms of Service.
+- Ad removal happens with **youtube's privacy link**.
 
 ---
 
